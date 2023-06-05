@@ -5,19 +5,18 @@ import java.util.ArrayList;
 
 
 public class CSVReader {
-    private String fileName;
+    private File file;
     private ArrayList<Earthquakes> data = new ArrayList<>();
 
 
-    public CSVReader(String fileName) {
-        this.fileName = "/" + fileName;
+    public CSVReader(File file) {
+        this.file = file;
         this.readCSV();
     }
 
     public void readCSV(){
         try {
-            InputStream file = getClass().getResourceAsStream(fileName);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(file));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             reader.readLine();
             while ((line = reader.readLine()) != null){
@@ -28,6 +27,10 @@ public class CSVReader {
         }
         catch (IOException e) {
             e.printStackTrace();
+        }
+
+        for (Earthquakes eq : data){
+            System.out.println(eq.toString());
         }
     }
 
