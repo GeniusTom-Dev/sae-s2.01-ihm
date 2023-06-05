@@ -8,7 +8,7 @@
     <artifactId>sae</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>SAE IHM</name>
+    <name>SAE IHM R.2.1</name>
     <url>https://maven.apache.org</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
