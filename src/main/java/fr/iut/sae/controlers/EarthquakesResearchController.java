@@ -8,9 +8,28 @@ import fr.iut.sae.utils.CustomCircleMarkerLayer;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.scene.shape.Circle;
 
 public class EarthquakesResearchController {
+
+    @FXML
+    Circle unknown;
+    @FXML
+    Circle twoToTwoPointFive;
+    @FXML
+    Circle threeToThreePointFive;
+    @FXML
+    Circle fourToFourPointFive;
+    @FXML
+    Circle fiveToFivePointFive;
+    @FXML
+    Circle sixToSixPointFive;
+    @FXML
+    Circle sevenToSevenPointFive;
+    @FXML
+    Circle eightToEightPointFive;
+    @FXML
+    Circle nineToNinePointFive;
 
     @FXML
     VBox mapZone;
@@ -19,7 +38,11 @@ public class EarthquakesResearchController {
 
     @FXML
     public void initialize() {
+        initializemMap();
+        initializeLegend();
+    }
 
+    private void initializemMap() {
         // Définit la plate-forme pour éviter "javafx.platform is not defined"
         System.setProperty("javafx.platform", "desktop");
 
@@ -45,7 +68,37 @@ public class EarthquakesResearchController {
 
         /* Centre la carte sur le point */
         map.flyTo(0, mapCenter, 0.1);
+    }
+
+    private void initializeLegend () {
+        // quand on ne connais pas la magnitude du seisme
+        unknown.setRadius(5);
+        unknown.setFill(Color.BLACK);
+
+        twoToTwoPointFive.setRadius(5);
+        twoToTwoPointFive.setFill(Color.rgb(0,0,255));
+
+        threeToThreePointFive.setRadius(5);
+        threeToThreePointFive.setFill(Color.rgb(125,125,125));
+
+        fourToFourPointFive.setRadius(5);
+        fourToFourPointFive.setFill(Color.rgb(0,255,255));
+
+        fiveToFivePointFive.setRadius(5);
+        fiveToFivePointFive.setFill(Color.rgb(0,255,0));
+
+        sixToSixPointFive.setRadius(5);
+        sixToSixPointFive.setFill(Color.rgb(255,255,0));
+
+        sevenToSevenPointFive.setRadius(5);
+        sevenToSevenPointFive.setFill(Color.rgb(255,100,0));
+
+        eightToEightPointFive.setRadius(5);
+        eightToEightPointFive.setFill(Color.rgb(255,0,0));
+
+        nineToNinePointFive.setRadius(5);
+        nineToNinePointFive.setFill(Color.rgb(255,0,255));
 
     }
-    
+
 }
