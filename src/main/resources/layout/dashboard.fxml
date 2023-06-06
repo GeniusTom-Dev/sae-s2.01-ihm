@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.iut.sae.controlers.DashboardController"
+            prefHeight="720" prefWidth="1280" stylesheets="@/styles/dashboard.css">
+
+
+    <center>
+        <LineChart fx:id="lineChart">
+            <xAxis>
+                <NumberAxis label="X-Axis" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Y-Axis" />
+            </yAxis>
+        </LineChart>
+    </center>
+
+</BorderPane>
