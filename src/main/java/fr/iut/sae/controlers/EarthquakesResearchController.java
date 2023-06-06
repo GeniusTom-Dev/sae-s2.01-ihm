@@ -6,6 +6,7 @@ import com.gluonhq.maps.MapView;
 
 import fr.iut.sae.utils.CustomCircleMarkerLayer;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -35,6 +36,21 @@ public class EarthquakesResearchController {
     VBox mapZone;
     @FXML
     MapView map;
+
+    @FXML
+    CheckBox checkBoxId;
+    @FXML
+    CheckBox checkBoxDate;
+    @FXML
+    CheckBox checkBoxHour;
+    @FXML
+    CheckBox checkBoxName;
+    @FXML
+    CheckBox checkBoxIntensity;
+    @FXML
+    CheckBox checkBoxQuality;
+    @FXML
+    CheckBox checkBoxArea;
 
     @FXML
     public void initialize() {

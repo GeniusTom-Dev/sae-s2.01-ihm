@@ -21,7 +21,6 @@ public class CSVReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return data;
     }
 
