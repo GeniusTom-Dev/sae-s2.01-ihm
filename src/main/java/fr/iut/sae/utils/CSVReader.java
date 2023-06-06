@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class CSVReader {
     private File file;
     private ArrayList<Earthquakes> data = new ArrayList<>();
+    public static boolean isLoaded = false;
 
 
     public CSVReader(File file) {
@@ -29,9 +30,13 @@ public class CSVReader {
             e.printStackTrace();
         }
 
-        for (Earthquakes eq : data){
-            System.out.println(eq.toString());
+        if (data.size() > 0) {
+            isLoaded = true;
         }
+
+//        for (Earthquakes eq : data){
+//            System.out.println(eq.toString());
+//        }
     }
 
 }

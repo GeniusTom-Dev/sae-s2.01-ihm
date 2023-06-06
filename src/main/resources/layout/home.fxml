@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.iut.sae.controlers.HomeController" prefWidth="1280" prefHeight="720"
+            style="-fx-background-color: #263553;">
+
+    <left>
+        <VBox prefWidth="640" prefHeight="720">
+
+        </VBox>
+    </left>
+
+    <center>
+        <Separator orientation="VERTICAL"/>
+    </center>
+
+    <right>
+        <VBox prefWidth="640" prefHeight="720" alignment="CENTER">
+            <Label>
+                <graphic>
+                    <ImageView>
+                        <Image url="@/assets/france.png" requestedWidth="250" requestedHeight="250"/>
+                    </ImageView>
+                </graphic>
+            </Label>
+
+            <HBox alignment="CENTER" spacing="50">
+                <Label text="Donnée chargé :" style="-fx-text-fill: white;"/>
+                <Label>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/assets/notValid.png" requestedWidth="30" requestedHeight="30"/>
+                        </ImageView>
+                    </graphic>
+                </Label>
+            </HBox>
+        </VBox>
+    </right>
+
+
+
+</BorderPane>
