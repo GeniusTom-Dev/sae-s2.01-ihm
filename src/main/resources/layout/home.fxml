@@ -18,7 +18,7 @@
 <?import java.lang.String?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.iut.sae.controlers.HomeController" prefWidth="1280" prefHeight="720"
-            style="-fx-background-color: #263553;" stylesheets="@/styles/home.css">
+            style="-fx-background-color: #263553;" stylesheets="@/styles/home.css" fx:id="borderPane">
 
     <top>
         <VBox alignment="CENTER" style="-fx-background-color: white;">
@@ -120,16 +120,16 @@
                         <Font size="25"/>
                     </font>
                 </Label>
-                <Label fx:id="isUploadImageGest">
+                <Label >
                     <graphic>
-                        <ImageView>
-                            <Image url="@/assets/notValid.png" requestedWidth="30" requestedHeight="30" fx:id="isUploadImage"/>
+                        <ImageView fx:id="isUploadImage">
+                            <Image url="@/assets/notValid.png" requestedWidth="30" requestedHeight="30"/>
                         </ImageView>
                     </graphic>
                 </Label>
             </HBox>
 
-            <Button text="Sélectionner un fichier CSV" fx:id="openFileButton" prefWidth="270"/>
+            <Button text="Sélectionner un fichier CSV" fx:id="openFileButton" prefWidth="270" onAction="#openFile"/>
         </VBox>
     </right>
 

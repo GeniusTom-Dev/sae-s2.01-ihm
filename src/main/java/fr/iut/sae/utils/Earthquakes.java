@@ -15,18 +15,18 @@ public class Earthquakes {
     private String quality;
 
     public Earthquakes(String[] data) {
-        this.id = data[0];
-        this.date = data[1];
-        this.hour = data[2];
-        this.name = data[3];
-        this.region = data[4];
-        this.shock = data[5];
-        this.xrgf = data[6];
-        this.yrgf = data[7];
-        this.latitude = data[8];
-        this.longitude = data[9];
-        this.intensity = data[10];
-        this.quality = data[11];
+        this.id = data[0].replace("\"", "");
+        this.date = data[1].replace("\"", "");
+        this.hour = data[2].replace("\"", "");
+        this.name = data[3].replace("\"", "");
+        this.region = data[4].replace("\"", "");
+        this.shock = data[5].replace("\"", "");
+        this.xrgf = data[6].replace("\"", "");
+        this.yrgf = data[7].replace("\"", "");
+        this.latitude = data[8].replace("\"", "");
+        this.longitude = data[9].replace("\"", "");
+        this.intensity = data[10].replace("\"", "");
+        this.quality = data[11].replace("\"", "");
     }
 
     public String getId() {
