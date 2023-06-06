@@ -9,12 +9,93 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.iut.sae.controlers.HomeController" prefWidth="1280" prefHeight="720"
-            style="-fx-background-color: #263553;">
+            style="-fx-background-color: #263553;" stylesheets="@/styles/home.css">
+
+    <top>
+        <VBox alignment="CENTER" style="-fx-background-color: white;">
+            <Label>
+                <graphic>
+                    <ImageView>
+                        <Image url="@/assets/logo.png" />
+                    </ImageView>
+                </graphic>
+            </Label>
+        </VBox>
+    </top>
 
     <left>
-        <VBox prefWidth="640" prefHeight="720">
+        <VBox prefWidth="640" prefHeight="720" alignment="CENTER" spacing="50">
+            <Label text="Recherche de séismes" style="-fx-text-fill: white;">
+                <font>
+                    <Font size="40"/>
+                </font>
+            </Label>
+
+            <GridPane alignment="CENTER" hgap="20" >
+                <Label text="Date" style="-fx-text-fill: #2aa8df;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <font>
+                        <Font size="20"/>
+                    </font>
+                </Label>
+
+                <TextField promptText="De" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField promptText="A" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            </GridPane>
+
+            <GridPane alignment="CENTER" hgap="20" >
+                <Label text="Localisation" style="-fx-text-fill: #2aa8df;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <font>
+                        <Font size="20"/>
+                    </font>
+                </Label>
+
+                <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <fx:define>
+                                <String fx:value="Français" />
+                                <String fx:value="Anglais" />
+                                <String fx:value="Espagnol" />
+                            </fx:define>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <items >
+                        <FXCollections fx:factory="observableArrayList">
+                            <fx:define>
+                                <String fx:value="Français" />
+                                <String fx:value="Anglais" />
+                                <String fx:value="Espagnol" />
+                            </fx:define>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </GridPane>
+
+            <GridPane alignment="CENTER" hgap="10" >
+                <Label text="Rayon de recherche (Coordonnées WGS 84)" style="-fx-text-fill: #2aa8df;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
+                    <font>
+                        <Font size="20"/>
+                    </font>
+                </Label>
+
+                <TextField promptText="Longitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField promptText="Latitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField promptText="Rayon (en km)" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            </GridPane>
+
+            <Button text="Rechercher" disable="true" fx:id="findButton" prefWidth="270"/>
 
         </VBox>
     </left>
@@ -24,7 +105,7 @@
     </center>
 
     <right>
-        <VBox prefWidth="640" prefHeight="720" alignment="CENTER">
+        <VBox prefWidth="640" prefHeight="720" alignment="CENTER" spacing="50">
             <Label>
                 <graphic>
                     <ImageView>
@@ -34,15 +115,21 @@
             </Label>
 
             <HBox alignment="CENTER" spacing="50">
-                <Label text="Donnée chargé :" style="-fx-text-fill: white;"/>
-                <Label>
+                <Label text="Donnée chargée :" style="-fx-text-fill: white;">
+                    <font>
+                        <Font size="25"/>
+                    </font>
+                </Label>
+                <Label fx:id="isUploadImageGest">
                     <graphic>
                         <ImageView>
-                            <Image url="@/assets/notValid.png" requestedWidth="30" requestedHeight="30"/>
+                            <Image url="@/assets/notValid.png" requestedWidth="30" requestedHeight="30" fx:id="isUploadImage"/>
                         </ImageView>
                     </graphic>
                 </Label>
             </HBox>
+
+            <Button text="Sélectionner un fichier CSV" fx:id="openFileButton" prefWidth="270"/>
         </VBox>
     </right>
 

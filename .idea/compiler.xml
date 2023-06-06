@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="sae-s2.01-ihm" />
+        <module name="sae" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

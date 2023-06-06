@@ -5,38 +5,24 @@ import java.util.ArrayList;
 
 
 public class CSVReader {
-    private File file;
-    private ArrayList<Earthquakes> data = new ArrayList<>();
-    public static boolean isLoaded = false;
+    public CSVReader() {}
 
-
-    public CSVReader(File file) {
-        this.file = file;
-        this.readCSV();
-    }
-
-    public void readCSV(){
+    public ArrayList<Earthquakes> readCSV(File file) {
+        ArrayList<Earthquakes> data = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             reader.readLine();
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 String[] actualLine = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 Earthquakes eq = new Earthquakes(actualLine);
                 data.add(eq);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        if (data.size() > 0) {
-            isLoaded = true;
-        }
-
-//        for (Earthquakes eq : data){
-//            System.out.println(eq.toString());
-//        }
+        return data;
     }
 
 }
