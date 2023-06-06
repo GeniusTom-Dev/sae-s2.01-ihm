@@ -70,8 +70,4 @@ public class HomeController {
         }
     }
 
-    public ArrayList<Earthquakes> getData(){
-        return data;
-    }
-
 }
