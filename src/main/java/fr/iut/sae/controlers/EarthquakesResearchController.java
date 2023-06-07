@@ -130,11 +130,54 @@ public class EarthquakesResearchController {
     }
 
     private void initializeMapPoints () {
-        for (Earthquakes datum : data) {
-            if (!datum.getLatitude().isEmpty() && !datum.getLongitude().isEmpty()) {
-                MapPoint mapPoint = new MapPoint(Double.parseDouble(datum.getLatitude()), Double.parseDouble(datum.getLongitude()));
-                MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.ALICEBLUE);
-                map.addLayer(mapLayer);
+        for (int i = 0; i < data.size(); i++) {
+            if (!data.get(i).getLatitude().isEmpty() && !data.get(i).getLongitude().isEmpty()) {
+
+                MapPoint mapPoint = new MapPoint(Double.parseDouble(data.get(i).getLatitude()), Double.parseDouble(data.get(i).getLongitude()));
+
+                // attribue la couleur du point en fonction de l'intensité du séisme
+                if(!data.get(i).getIntensity().isEmpty()) {
+                    if (Double.parseDouble(data.get(i).getIntensity()) <= 2.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,0,255));
+                        map.addLayer(mapLayer);
+                    }
+                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 3.5 && Double.parseDouble(data.get(i).getIntensity()) > 2.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(125,125,125));
+                        map.addLayer(mapLayer);
+                    }
+                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 4.5 && Double.parseDouble(data.get(i).getIntensity()) > 3.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,255,255));
+                        map.addLayer(mapLayer);
+                    }
+                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 5.5 && Double.parseDouble(data.get(i).getIntensity()) > 4.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,255,0));
+                        map.addLayer(mapLayer);
+                    }
+                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 6.5 && Double.parseDouble(data.get(i).getIntensity()) > 5.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,255,0));
+                        map.addLayer(mapLayer);
+                    }
+                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 7.5 && Double.parseDouble(data.get(i).getIntensity()) > 6.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,100,0));
+                        map.addLayer(mapLayer);
+                    }
+                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 8.5 && Double.parseDouble(data.get(i).getIntensity()) > 7.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,0,0));
+                        map.addLayer(mapLayer);
+                    }
+                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 9.5 && Double.parseDouble(data.get(i).getIntensity()) > 8.5) {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,0,255));
+                        map.addLayer(mapLayer);
+                    }
+                    else {
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,0,0));
+                        map.addLayer(mapLayer);
+                    }
+                }
+                else {
+                    MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,0,0));
+                    map.addLayer(mapLayer);
+                }
             }
         }
     }

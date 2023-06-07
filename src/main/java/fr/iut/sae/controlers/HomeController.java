@@ -3,6 +3,7 @@ package fr.iut.sae.controlers;
 import fr.iut.sae.utils.CSVReader;
 import fr.iut.sae.utils.Earthquakes;
 import fr.iut.sae.view.Home;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -73,5 +74,4 @@ public class HomeController {
             }
         }
     }
-
 }
