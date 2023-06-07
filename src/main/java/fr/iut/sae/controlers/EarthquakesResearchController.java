@@ -5,13 +5,18 @@ import com.gluonhq.maps.MapPoint;
 import com.gluonhq.maps.MapView;
 
 import fr.iut.sae.utils.CustomCircleMarkerLayer;
+import fr.iut.sae.utils.Earthquakes;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
+
 public class EarthquakesResearchController {
+
+    private ArrayList<Earthquakes> data;
 
     @FXML
     Circle unknown;
@@ -115,6 +120,10 @@ public class EarthquakesResearchController {
         nineToNinePointFive.setRadius(5);
         nineToNinePointFive.setFill(Color.rgb(255,0,255));
 
+    }
+
+    public void setData(ArrayList<Earthquakes> data){
+        this.data = data;
     }
 
 }

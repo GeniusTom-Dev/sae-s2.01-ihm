@@ -66,6 +66,12 @@ public class HomeController {
                 loader.load();
                 DashboardController controller = loader.getController();
                 controller.setData(data);
+
+                // envoie les données dans la classe EarthquakesResearchController.java
+                FXMLLoader loaderEarthquakesResearch = new FXMLLoader(getClass().getClassLoader().getResource("layout/EarthquakesResearch.fxml"));
+                loaderEarthquakesResearch.load();
+                EarthquakesResearchController earthquakesResearchController = loaderEarthquakesResearch.getController();
+                earthquakesResearchController.setData(data);
             }
         }
     }
