@@ -17,24 +17,26 @@
                     <Label text="Recherche"/>
                     <TextField/>
                 </HBox>
-                <GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="5" >
-                    <!-- selection de l'attribut recherché -->
-                    <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="checkBoxId"/>
-                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="checkBoxDate"/>
-                    <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="checkBoxHour"/>
-                    <CheckBox GridPane.columnIndex="3" GridPane.rowIndex="0" fx:id="checkBoxName"/>
-                    <CheckBox GridPane.columnIndex="4" GridPane.rowIndex="0" fx:id="checkBoxIntensity"/>
-                    <CheckBox GridPane.columnIndex="5" GridPane.rowIndex="0" fx:id="checkBoxQuality"/>
-                    <CheckBox GridPane.columnIndex="6" GridPane.rowIndex="0" fx:id="checkBoxArea"/>
-                    <!-- première ligne (fixe) -->
-                    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Identifiant"/>
-                    <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="Date (AAAA/MM/JJ)"/>
-                    <Label GridPane.columnIndex="2" GridPane.rowIndex="1" text="Heure"/>
-                    <Label GridPane.columnIndex="3" GridPane.rowIndex="1" text="Nom"/>
-                    <Label GridPane.columnIndex="4" GridPane.rowIndex="1" text="Intensité épicentrale"/>
-                    <Label GridPane.columnIndex="5" GridPane.rowIndex="1" text="Qualité intensité épicentrale"/>
-                    <Label GridPane.columnIndex="6" GridPane.rowIndex="1" text="Région épicentrale"/>
-                </GridPane>
+                <ScrollPane>
+                    <GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="5" fx:id="chart">
+                        <!-- selection de l'attribut recherché -->
+                        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="checkBoxId"/>
+                        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="checkBoxDate"/>
+                        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="checkBoxHour"/>
+                        <CheckBox GridPane.columnIndex="3" GridPane.rowIndex="0" fx:id="checkBoxName"/>
+                        <CheckBox GridPane.columnIndex="4" GridPane.rowIndex="0" fx:id="checkBoxIntensity"/>
+                        <CheckBox GridPane.columnIndex="5" GridPane.rowIndex="0" fx:id="checkBoxQuality"/>
+                        <CheckBox GridPane.columnIndex="6" GridPane.rowIndex="0" fx:id="checkBoxArea"/>
+                        <!-- première ligne (fixe) -->
+                        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Identifiant"/>
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="Date (AAAA/MM/JJ)"/>
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="1" text="Heure"/>
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="1" text="Nom"/>
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="1" text="Intensité épicentrale"/>
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="1" text="Qualité intensité épicentrale"/>
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="1" text="Région épicentrale"/>
+                    </GridPane>
+                </ScrollPane>
             </VBox>
             <VBox fx:id="mapZone" prefWidth="600" prefHeight="720">
                 <MapView fx:id="map" prefWidth="600" prefHeight="650"/>

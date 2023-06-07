@@ -14,6 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -69,12 +71,16 @@ public class EarthquakesResearchController {
     CheckBox checkBoxArea;
 
     @FXML
+    GridPane chart;
+
+    @FXML
     public void initialize() {
         initializeMap();
         initializeLegend();
         data.addListener((observableValue, earthquakes, newValue) -> {
             if (newValue != null && !newValue.isEmpty()) {
                 initializeMapPoints();
+                initializeGridPaneData();
             }
         });
     }
@@ -179,6 +185,20 @@ public class EarthquakesResearchController {
                     map.addLayer(mapLayer);
                 }
             }
+        }
+    }
+
+    private void initializeGridPaneData () {
+        for (int i = 0; i < data.size(); i++) {
+            Label id = new Label(data.get(i).getId());
+            Label date = new Label(data.get(i).getDate());
+            Label hour = new Label(data.get(i).getHour());
+            Label name = new Label(data.get(i).getName());
+            Label intensity = new Label(data.get(i).getIntensity());
+            Label quality = new Label(data.get(i).getQuality());
+            Label region = new Label(data.get(i).getRegion());
+
+            chart.addRow(i+2,id,date,hour,name,intensity,quality,region);
         }
     }
 }
