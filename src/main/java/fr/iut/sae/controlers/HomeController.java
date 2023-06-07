@@ -41,8 +41,6 @@ public class HomeController {
     // Variables
     private ArrayList<Earthquakes> data;
 
-
-
     @FXML
     public void openFile() throws IOException {
         FileChooser fileChooser = new FileChooser();

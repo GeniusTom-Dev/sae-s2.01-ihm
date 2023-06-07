@@ -6,6 +6,12 @@ import com.gluonhq.maps.MapView;
 
 import fr.iut.sae.utils.CustomCircleMarkerLayer;
 import fr.iut.sae.utils.Earthquakes;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
@@ -16,7 +22,19 @@ import java.util.ArrayList;
 
 public class EarthquakesResearchController {
 
-    private ArrayList<Earthquakes> data;
+    //    private ArrayList<Earthquakes> data = new ArrayList<>();
+    private ListProperty<Earthquakes> data = new SimpleListProperty<>();
+
+    public ObservableList<Earthquakes> getData() {
+        return data.get();
+    }
+    public ListProperty<Earthquakes> dataProperty() {
+        return data;
+    }
+    public void setData(ArrayList<Earthquakes> data) {
+        this.data.set(FXCollections.observableList(data));
+    }
+
 
     @FXML
     Circle unknown;
@@ -59,30 +77,29 @@ public class EarthquakesResearchController {
 
     @FXML
     public void initialize() {
-        initializemMap();
+        initializeMap();
         initializeLegend();
+        data.addListener(new ChangeListener<ObservableList<Earthquakes>>() {
+            @Override
+            public void changed(ObservableValue<? extends ObservableList<Earthquakes>> observableValue, ObservableList<Earthquakes> earthquakes, ObservableList<Earthquakes> newValue) {
+                if (newValue != null && !newValue.isEmpty()) {
+                    initializeMapPoints();
+                }
+            }
+        });
     }
 
-    private void initializemMap() {
+    private void initializeMap() {
         // Définit la plate-forme pour éviter "javafx.platform is not defined"
         System.setProperty("javafx.platform", "desktop");
 
         //Définit l'user agent pour éviter l'exception "Server returned HTTP response code: 403"
         System.setProperty("http.agent", "Gluon Mobile/1.0.3");
 
-        /* Création du point avec latitude et longitude */
-        MapPoint mapPointDepartInfo = new MapPoint(43.514640, 5.451056);
-        MapPoint mapPointTeste2 = new MapPoint(45, 5.5);
-
-        /* Création et ajoute une couche à la carte */
-        MapLayer mapLayerDepartInfo = new CustomCircleMarkerLayer(mapPointDepartInfo, Color.RED);
-        MapLayer mapLayerTeste2 = new CustomCircleMarkerLayer(mapPointTeste2, Color.BLUE);
-
-        map.addLayer(mapLayerDepartInfo);
-        map.addLayer(mapLayerTeste2);
-
-        // création du centre
+        // initialisation du centre de la carte de référence
         MapPoint mapCenter = new MapPoint(46.227638, 2.213749);
+
+        // création des points correspondant au séisme
 
         /* Zoom de 5 */
         map.setZoom(5);
@@ -122,8 +139,13 @@ public class EarthquakesResearchController {
 
     }
 
-    public void setData(ArrayList<Earthquakes> data){
-        this.data = data;
+    private void initializeMapPoints () {
+        for (int i = 0; i < data.size() ; i++) {
+            if (!data.get(i).getLatitude().isEmpty() && !data.get(i).getLongitude().isEmpty()) {
+                MapPoint mapPoint = new MapPoint(Double.parseDouble(data.get(i).getLatitude()), Double.parseDouble(data.get(i).getLongitude()));
+                MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.ALICEBLUE);
+                map.addLayer(mapLayer);
+            }
+        }
     }
-
 }
