@@ -25,16 +25,9 @@ public class EarthquakesResearchController {
     //    private ArrayList<Earthquakes> data = new ArrayList<>();
     private ListProperty<Earthquakes> data = new SimpleListProperty<>();
 
-    public ObservableList<Earthquakes> getData() {
-        return data.get();
-    }
-    public ListProperty<Earthquakes> dataProperty() {
-        return data;
-    }
     public void setData(ArrayList<Earthquakes> data) {
         this.data.set(FXCollections.observableList(data));
     }
-
 
     @FXML
     Circle unknown;
@@ -79,12 +72,9 @@ public class EarthquakesResearchController {
     public void initialize() {
         initializeMap();
         initializeLegend();
-        data.addListener(new ChangeListener<ObservableList<Earthquakes>>() {
-            @Override
-            public void changed(ObservableValue<? extends ObservableList<Earthquakes>> observableValue, ObservableList<Earthquakes> earthquakes, ObservableList<Earthquakes> newValue) {
-                if (newValue != null && !newValue.isEmpty()) {
-                    initializeMapPoints();
-                }
+        data.addListener((observableValue, earthquakes, newValue) -> {
+            if (newValue != null && !newValue.isEmpty()) {
+                initializeMapPoints();
             }
         });
     }
@@ -140,9 +130,9 @@ public class EarthquakesResearchController {
     }
 
     private void initializeMapPoints () {
-        for (int i = 0; i < data.size() ; i++) {
-            if (!data.get(i).getLatitude().isEmpty() && !data.get(i).getLongitude().isEmpty()) {
-                MapPoint mapPoint = new MapPoint(Double.parseDouble(data.get(i).getLatitude()), Double.parseDouble(data.get(i).getLongitude()));
+        for (Earthquakes datum : data) {
+            if (!datum.getLatitude().isEmpty() && !datum.getLongitude().isEmpty()) {
+                MapPoint mapPoint = new MapPoint(Double.parseDouble(datum.getLatitude()), Double.parseDouble(datum.getLongitude()));
                 MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.ALICEBLUE);
                 map.addLayer(mapLayer);
             }
