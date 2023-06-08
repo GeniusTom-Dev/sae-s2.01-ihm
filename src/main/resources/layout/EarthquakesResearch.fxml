@@ -14,8 +14,8 @@
         <HBox>
             <VBox prefHeight="720" prefWidth="680">
                 <HBox>
-                    <Label text="Recherche"/>
-                    <TextField/>
+                    <Label text="Recherche ID"/>
+                    <TextField fx:id="searchTextField"/>
                 </HBox>
                 <ScrollPane>
                     <GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="5" fx:id="chart">

@@ -8,13 +8,12 @@ import fr.iut.sae.utils.CustomCircleMarkerLayer;
 import fr.iut.sae.utils.Earthquakes;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -24,12 +23,13 @@ import java.util.ArrayList;
 
 public class EarthquakesResearchController {
 
-    //    private ArrayList<Earthquakes> data = new ArrayList<>();
     private ListProperty<Earthquakes> data = new SimpleListProperty<>();
+    private ArrayList<MapLayer> mapLayersList = new ArrayList<>();
 
     public void setData(ArrayList<Earthquakes> data) {
         this.data.set(FXCollections.observableList(data));
     }
+
 
     @FXML
     Circle unknown;
@@ -72,15 +72,21 @@ public class EarthquakesResearchController {
 
     @FXML
     GridPane chart;
+    @FXML
+    TextField searchTextField;
 
     @FXML
     public void initialize() {
         initializeMap();
         initializeLegend();
+        // regarde lorsque l'utilisateur édite le texte dans le TextField
+        searchTextField.selectionProperty().addListener(observable -> searchEarthquake());
+        // regarde lorsque les datas sont chargés dans l'application
         data.addListener((observableValue, earthquakes, newValue) -> {
             if (newValue != null && !newValue.isEmpty()) {
-                initializeMapPoints();
-                initializeGridPaneData();
+                addMapPoints(data);
+                addGridPaneData(data);
+                // execute une recherche quand ENTER est pressé
             }
         });
     }
@@ -135,70 +141,110 @@ public class EarthquakesResearchController {
 
     }
 
-    private void initializeMapPoints () {
-        for (int i = 0; i < data.size(); i++) {
-            if (!data.get(i).getLatitude().isEmpty() && !data.get(i).getLongitude().isEmpty()) {
+    private void addMapPoints (ListProperty<Earthquakes> earthquakes) {
+        for (int i = 0; i < earthquakes.size(); i++) {
+            if (!earthquakes.get(i).getLatitude().isEmpty() && !earthquakes.get(i).getLongitude().isEmpty()) {
 
-                MapPoint mapPoint = new MapPoint(Double.parseDouble(data.get(i).getLatitude()), Double.parseDouble(data.get(i).getLongitude()));
+                MapPoint mapPoint = new MapPoint(Double.parseDouble(earthquakes.get(i).getLatitude()), Double.parseDouble(earthquakes.get(i).getLongitude()));
 
                 // attribue la couleur du point en fonction de l'intensité du séisme
-                if(!data.get(i).getIntensity().isEmpty()) {
-                    if (Double.parseDouble(data.get(i).getIntensity()) <= 2.5) {
+                if(!earthquakes.get(i).getIntensity().isEmpty()) {
+                    if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 2.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,0,255));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
-                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 3.5 && Double.parseDouble(data.get(i).getIntensity()) > 2.5) {
+                    else if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 3.5 && Double.parseDouble(earthquakes.get(i).getIntensity()) > 2.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(125,125,125));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
-                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 4.5 && Double.parseDouble(data.get(i).getIntensity()) > 3.5) {
+                    else if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 4.5 && Double.parseDouble(earthquakes.get(i).getIntensity()) > 3.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,255,255));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
-                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 5.5 && Double.parseDouble(data.get(i).getIntensity()) > 4.5) {
+                    else if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 5.5 && Double.parseDouble(earthquakes.get(i).getIntensity()) > 4.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,255,0));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
-                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 6.5 && Double.parseDouble(data.get(i).getIntensity()) > 5.5) {
+                    else if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 6.5 && Double.parseDouble(earthquakes.get(i).getIntensity()) > 5.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,255,0));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
-                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 7.5 && Double.parseDouble(data.get(i).getIntensity()) > 6.5) {
+                    else if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 7.5 && Double.parseDouble(earthquakes.get(i).getIntensity()) > 6.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,100,0));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
-                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 8.5 && Double.parseDouble(data.get(i).getIntensity()) > 7.5) {
+                    else if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 8.5 && Double.parseDouble(earthquakes.get(i).getIntensity()) > 7.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,0,0));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
-                    else if (Double.parseDouble(data.get(i).getIntensity()) <= 9.5 && Double.parseDouble(data.get(i).getIntensity()) > 8.5) {
+                    else if (Double.parseDouble(earthquakes.get(i).getIntensity()) <= 9.5 && Double.parseDouble(earthquakes.get(i).getIntensity()) > 8.5) {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(255,0,255));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
                     else {
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,0,0));
+                        mapLayersList.add(mapLayer);
                         map.addLayer(mapLayer);
                     }
                 }
                 else {
                     MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint, Color.rgb(0,0,0));
+                    mapLayersList.add(mapLayer);
                     map.addLayer(mapLayer);
                 }
             }
         }
     }
 
-    private void initializeGridPaneData () {
-        for (int i = 0; i < data.size(); i++) {
-            Label id = new Label(data.get(i).getId());
-            Label date = new Label(data.get(i).getDate());
-            Label hour = new Label(data.get(i).getHour());
-            Label name = new Label(data.get(i).getName());
-            Label intensity = new Label(data.get(i).getIntensity());
-            Label quality = new Label(data.get(i).getQuality());
-            Label region = new Label(data.get(i).getRegion());
+    private void clearMapPoints () {
+        for (MapLayer mapLayer: mapLayersList) {
+            map.removeLayer(mapLayer);
+        }
+    }
+    private void addGridPaneData (ListProperty<Earthquakes> earthquakes) {
+        for (int i = 0; i < earthquakes.size(); i++) {
+            Label id = new Label(earthquakes.get(i).getId());
+            Label date = new Label(earthquakes.get(i).getDate());
+            Label hour = new Label(earthquakes.get(i).getHour());
+            Label name = new Label(earthquakes.get(i).getName());
+            Label intensity = new Label(earthquakes.get(i).getIntensity());
+            Label quality = new Label(earthquakes.get(i).getQuality());
+            Label region = new Label(earthquakes.get(i).getRegion());
 
             chart.addRow(i+2,id,date,hour,name,intensity,quality,region);
         }
+    }
+
+    private void searchEarthquake() {
+
+        String searchString = searchTextField.getText();
+
+        // on supprime toute du tableau et de la carte
+        chart.getChildren().removeIf(node -> GridPane.getRowIndex(node) > 1);
+        clearMapPoints();
+
+        // recherche des données correspondantes
+        ListProperty<Earthquakes> matchingData = findMatchingData(searchString);
+        // met à jour le tableau et la carte
+        addGridPaneData(matchingData);
+        addMapPoints(matchingData);
+    }
+
+    private ListProperty<Earthquakes> findMatchingData(String searchString) {
+        ListProperty<Earthquakes> matchingData = new SimpleListProperty<>();
+        for (Earthquakes earthquake : data) {
+            if (earthquake.getId().contains(searchString)) {
+                matchingData.add(earthquake);
+            }
+        }
+        return matchingData;
     }
 }
