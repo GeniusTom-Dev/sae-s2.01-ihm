@@ -2,6 +2,7 @@ package fr.iut.sae.controlers;
 
 import fr.iut.sae.utils.CSVReader;
 import fr.iut.sae.utils.Earthquakes;
+import fr.iut.sae.view.DashBoard;
 import fr.iut.sae.view.Home;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -73,5 +74,12 @@ public class HomeController {
                 earthquakesResearchController.setData(data);
             }
         }
+    }
+
+    @FXML
+    public void findHandler(){
+        System.out.println("ici");
+        Stage currentStage = (Stage) borderPane.getScene().getWindow();
+        currentStage.setScene(DashBoard.getScene());
     }
 }

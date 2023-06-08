@@ -22,4 +22,15 @@ public class EarthquakesResearch extends Application {
             e.printStackTrace();
         }
     }
+
+    public static Scene getScene(){
+        try {
+            BorderPane root = FXMLLoader.load(DashBoard.class.getClassLoader().getResource("layout/EarthquakesResearch.fxml"));
+            return new Scene(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
 }

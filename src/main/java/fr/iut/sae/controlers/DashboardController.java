@@ -31,6 +31,5 @@ public class DashboardController implements Initializable {
 
     public void setData(ArrayList<Earthquakes> data){
         this.data = data;
-        System.out.println(data);
     }
 }

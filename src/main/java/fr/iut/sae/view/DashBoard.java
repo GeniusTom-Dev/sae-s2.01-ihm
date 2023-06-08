@@ -23,4 +23,15 @@ public class DashBoard extends Application {
             e.printStackTrace();
         }
     }
+
+    public static Scene getScene(){
+        try {
+            BorderPane root = FXMLLoader.load(DashBoard.class.getClassLoader().getResource("layout/dashboard.fxml"));
+            return new Scene(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
 }
