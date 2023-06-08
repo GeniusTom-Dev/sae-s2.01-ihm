@@ -95,7 +95,7 @@
                 <TextField promptText="Rayon (en km)" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             </GridPane>
 
-            <Button text="Rechercher" disable="true" fx:id="findButton" prefWidth="270"/>
+            <Button text="Rechercher" disable="true" fx:id="findButton" onAction="#findHandler" prefWidth="270"/>
 
         </VBox>
     </left>
