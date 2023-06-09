@@ -18,7 +18,7 @@
 <?import java.lang.String?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.iut.sae.controlers.HomeController" prefWidth="1280" prefHeight="720"
-            style="-fx-background-color: #263553;" stylesheets="@/styles/home.css" fx:id="borderPane">
+            stylesheets="@/styles/home.css" fx:id="borderPane">
 
     <top>
         <VBox alignment="CENTER" style="-fx-background-color: white;">

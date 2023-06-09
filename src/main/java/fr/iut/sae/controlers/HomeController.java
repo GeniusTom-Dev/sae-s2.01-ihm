@@ -78,7 +78,6 @@ public class HomeController {
 
     @FXML
     public void findHandler(){
-        System.out.println("ici");
         Stage currentStage = (Stage) borderPane.getScene().getWindow();
         currentStage.setScene(DashBoard.getScene());
     }

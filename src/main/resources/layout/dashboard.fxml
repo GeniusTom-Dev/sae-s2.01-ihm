@@ -1,29 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.PieChart?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.iut.sae.controlers.DashboardController"
-            prefHeight="720" prefWidth="1280" stylesheets="@/styles/dashboard.css">
+            prefWidth="1280" prefHeight="720" stylesheets="@/styles/dashboard.css" >
 
+    <top>
+        <HBox alignment="CENTER">
+            <Label text="Dashboard" style="-fx-text-fill: white">
+                <font>
+                    <Font name="System Bold" size="24" />
+                </font>
+            </Label>
+        </HBox>
+    </top>
 
     <center>
-        <LineChart fx:id="lineChart">
-            <xAxis>
-                <NumberAxis label="X-Axis" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis label="Y-Axis" />
-            </yAxis>
-        </LineChart>
+        <GridPane alignment="CENTER" hgap="50" vgap="50" styleClass="mainGrid">
+            <LineChart fx:id="lineChart" GridPane.columnIndex="0" GridPane.rowIndex="0" title="Nombre de séismes par années">
+                <xAxis>
+                    <NumberAxis label="Date" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Nombre de séisme" />
+                </yAxis>
+            </LineChart>
+
+            <PieChart fx:id="pieChart" GridPane.columnIndex="0" GridPane.rowIndex="1" title="Type de Choc">
+
+            </PieChart>
+
+            <VBox alignment="CENTER" spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <HBox  prefWidth="640" spacing="40">
+                    <VBox styleClass="group-cards" prefWidth="300" prefHeight="150" alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Nombre de séismes">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                        <Label text="0" style="-fx-text-fill: white" fx:id="nbEarthQuackTotal">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                    </VBox>
+
+                    <VBox styleClass="group-cards" prefWidth="300" prefHeight="150" alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Moyenne d'intensitée">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                        <Label text="0" style="-fx-text-fill: white">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                    </VBox>
+
+                </HBox>
+
+                <HBox  prefWidth="640" spacing="40">
+                    <VBox styleClass="group-cards" prefWidth="300" prefHeight="150" alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Intensité épicentrale maximale" wrapText="true">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                        <Label text="0" style="-fx-text-fill: white">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                    </VBox>
+
+                    <VBox styleClass="group-cards" prefWidth="300" prefHeight="150" alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Région la plus touché">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                        <Label text="0" style="-fx-text-fill: white">
+                            <font>
+                                <Font name="System Bold" size="24" />
+                            </font>
+                        </Label>
+                    </VBox>
+
+                </HBox>
+            </VBox>
+
+<!--            Bas droite-->
+
+            <BarChart fx:id="barChart2" GridPane.columnIndex="1" GridPane.rowIndex="1" title="Séismes par région épicentrale">
+                <xAxis >
+                    <CategoryAxis label="Date" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Population"/>
+                </yAxis>
+
+            </BarChart>
+        </GridPane>
+
     </center>
 
 </BorderPane>

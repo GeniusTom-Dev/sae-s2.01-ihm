@@ -1,0 +1,22 @@
+.root{
+    -fx-background-color: #263553
+}
+
+.chart{
+    -fx-background-color: #f8f8fb;
+    -fx-background-radius: 10;
+}
+
+.group-cards {
+    -fx-background-image: url("/assets/card.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.label{
+    -fx-padding: 0 0 0 20;
+}
+
+.mainGrid {
+    -fx-padding: 30 0 30 0;
+}

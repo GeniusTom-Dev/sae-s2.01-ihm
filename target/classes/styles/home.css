@@ -1,3 +1,7 @@
+.root{
+    -fx-background-color: #263553;
+}
+
 .text-field, .combo-box{
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -7,7 +11,6 @@
 }
 
 .button{
-
     -fx-background-color: #ffd634;
     -fx-text-fill: #363a53;
 }
