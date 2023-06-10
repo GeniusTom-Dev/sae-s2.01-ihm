@@ -2,19 +2,14 @@ package fr.iut.sae.controlers;
 
 import fr.iut.sae.utils.CSVReader;
 import fr.iut.sae.utils.Earthquakes;
-import fr.iut.sae.view.DashBoard;
-import fr.iut.sae.view.Home;
-import javafx.event.Event;
+import fr.iut.sae.view.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -78,7 +73,6 @@ public class HomeController {
 
     @FXML
     public void findHandler(){
-        Stage currentStage = (Stage) borderPane.getScene().getWindow();
-        currentStage.setScene(DashBoard.getScene());
+        App.setDashboard();
     }
 }

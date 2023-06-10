@@ -15,6 +15,7 @@ public class CSVReader {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] actualLine = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                System.out.println(actualLine.length);
                 Earthquakes eq = new Earthquakes(actualLine);
                 data.add(eq);
             }

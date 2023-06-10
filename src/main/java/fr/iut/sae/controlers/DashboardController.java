@@ -6,6 +6,7 @@ import javafx.scene.chart.LineChart;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,6 +21,10 @@ public class DashboardController{
     @FXML
     private PieChart pieChart;
 
+//    Import Labels from FXML
+    @FXML
+    private Label nbEarthQuackTotal;
+
     private ArrayList<Earthquakes> data;
 
 
@@ -27,12 +32,12 @@ public class DashboardController{
         this.data = data;
         this.initPieChart();
         this.initGeneralData();
-
-
     }
 
     public void initGeneralData(){
-
+        System.out.println(data.size());
+        nbEarthQuackTotal.setText("cooucou");
+//        nbEarthQuackTotal.setText(String.valueOf(data.size()));
     }
 
     public void initPieChart(){
