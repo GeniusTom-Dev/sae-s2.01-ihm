@@ -12,7 +12,7 @@
 
     <top>
         <VBox alignment="CENTER_RIGHT">
-            <Button text="DashBoard" fx:id="toDashBoard" alignment="CENTER_RIGHT" prefHeight="20" onAction="#toDashboard"/>
+            <Button text="DashBoard" alignment="CENTER_RIGHT" prefHeight="20" onAction="#toDashboard"/>
         </VBox>
     </top>
     <center>

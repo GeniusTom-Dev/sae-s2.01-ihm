@@ -254,6 +254,7 @@ public class EarthquakesResearchController {
     @FXML
     private void toDashboard() {
         DashboardController DashboardController = (DashboardController) App.setScene("layout/dashboard.fxml");
+        assert DashboardController != null;
         DashboardController.setData(data);
     }
 }

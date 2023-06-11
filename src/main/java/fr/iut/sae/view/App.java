@@ -20,8 +20,10 @@ public class App extends Application {
     public void start(Stage stage) {
         appStage = stage;
         setHome();
+        stage.setResizable(false);
         appStage.setTitle("Sis-France");
         appStage.show();
+
     }
 
     public static <T> T setScene(String fxmlPath) {
