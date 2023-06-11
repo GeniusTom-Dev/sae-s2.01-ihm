@@ -6,20 +6,18 @@ import com.gluonhq.maps.MapView;
 
 import fr.iut.sae.utils.CustomCircleMarkerLayer;
 import fr.iut.sae.utils.Earthquakes;
+import fr.iut.sae.view.App;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class EarthquakesResearchController {
 
@@ -251,5 +249,11 @@ public class EarthquakesResearchController {
                 filteredData.add(data.get(i));
             }
         }
+    }
+
+    @FXML
+    private void toDashboard() {
+        DashboardController DashboardController = (DashboardController) App.setScene("layout/dashboard.fxml");
+        DashboardController.setData(data);
     }
 }
