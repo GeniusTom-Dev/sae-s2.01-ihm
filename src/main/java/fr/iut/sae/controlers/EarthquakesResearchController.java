@@ -11,20 +11,22 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class EarthquakesResearchController {
 
     private ListProperty<Earthquakes> data = new SimpleListProperty<>();
+    private ListProperty<Earthquakes> filteredData = new SimpleListProperty<>(FXCollections.observableArrayList());
     private ArrayList<MapLayer> mapLayersList = new ArrayList<>();
+    private ArrayList<MapPoint> mapPointsList = new ArrayList<>();
 
     public void setData(ArrayList<Earthquakes> data) {
         this.data.set(FXCollections.observableList(data));
@@ -56,22 +58,18 @@ public class EarthquakesResearchController {
     MapView map;
 
     @FXML
-    CheckBox checkBoxId;
+    TableView<Earthquakes> chart;
     @FXML
-    CheckBox checkBoxDate;
+    TableColumn<Object,Object> idColumn;
     @FXML
-    CheckBox checkBoxHour;
+    TableColumn<Object,Object> dateColumn;
     @FXML
-    CheckBox checkBoxName;
+    TableColumn<Object,Object> regionColumn;
     @FXML
-    CheckBox checkBoxIntensity;
+    TableColumn<Object,Object> nameColumn;
     @FXML
-    CheckBox checkBoxQuality;
-    @FXML
-    CheckBox checkBoxArea;
+    TableColumn<Object,Object> intensityColumn;
 
-    @FXML
-    GridPane chart;
     @FXML
     TextField searchTextField;
 
@@ -79,14 +77,16 @@ public class EarthquakesResearchController {
     public void initialize() {
         initializeMap();
         initializeLegend();
+        initializeTableView();
         // regarde lorsque l'utilisateur édite le texte dans le TextField
         searchTextField.selectionProperty().addListener(observable -> searchEarthquake());
         // regarde lorsque les datas sont chargés dans l'application
         data.addListener((observableValue, earthquakes, newValue) -> {
             if (newValue != null && !newValue.isEmpty()) {
-                addMapPoints(data);
-                addGridPaneData(data);
-                // execute une recherche quand ENTER est pressé
+                // copie des données dans filteredData qui de base n'a pas de filtre
+                filteredData.addAll(data);
+
+                addMapPoints(filteredData);
             }
         });
     }
@@ -101,17 +101,15 @@ public class EarthquakesResearchController {
         // initialisation du centre de la carte de référence
         MapPoint mapCenter = new MapPoint(46.227638, 2.213749);
 
-        // création des points correspondant au séisme
-
         /* Zoom de 5 */
         map.setZoom(5);
 
         /* Centre la carte sur le point */
-        map.flyTo(0, mapCenter, 0.1);
+        map.flyTo(0, mapCenter, 0.08);
     }
 
     private void initializeLegend () {
-        // quand on ne connais pas la magnitude du seisme
+        // quand on ne connait pas la magnitude du seisme
         unknown.setRadius(5);
         unknown.setFill(Color.BLACK);
 
@@ -142,10 +140,12 @@ public class EarthquakesResearchController {
     }
 
     private void addMapPoints (ListProperty<Earthquakes> earthquakes) {
+        clearMapPoints();
         for (int i = 0; i < earthquakes.size(); i++) {
             if (!earthquakes.get(i).getLatitude().isEmpty() && !earthquakes.get(i).getLongitude().isEmpty()) {
 
                 MapPoint mapPoint = new MapPoint(Double.parseDouble(earthquakes.get(i).getLatitude()), Double.parseDouble(earthquakes.get(i).getLongitude()));
+                mapPointsList.add(mapPoint);
 
                 // attribue la couleur du point en fonction de l'intensité du séisme
                 if(!earthquakes.get(i).getIntensity().isEmpty()) {
@@ -202,49 +202,54 @@ public class EarthquakesResearchController {
                 }
             }
         }
+        MapPoint replace = new MapPoint(map.getCenter().getLatitude()+0.0000001, map.getCenter().getLongitude()+0.000001);
+        map.flyTo(0,replace,0.5);
+
     }
 
     private void clearMapPoints () {
-        for (MapLayer mapLayer: mapLayersList) {
-            map.removeLayer(mapLayer);
+        for (int i = 0; i < mapLayersList.size(); i++) {
+            map.removeLayer(mapLayersList.get(i));
         }
+        mapPointsList.clear();
+        mapLayersList.clear();
     }
-    private void addGridPaneData (ListProperty<Earthquakes> earthquakes) {
-        for (int i = 0; i < earthquakes.size(); i++) {
-            Label id = new Label(earthquakes.get(i).getId());
-            Label date = new Label(earthquakes.get(i).getDate());
-            Label hour = new Label(earthquakes.get(i).getHour());
-            Label name = new Label(earthquakes.get(i).getName());
-            Label intensity = new Label(earthquakes.get(i).getIntensity());
-            Label quality = new Label(earthquakes.get(i).getQuality());
-            Label region = new Label(earthquakes.get(i).getRegion());
 
-            chart.addRow(i+2,id,date,hour,name,intensity,quality,region);
-        }
+    private void initializeTableView () {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        regionColumn.setCellValueFactory(new PropertyValueFactory<>("region"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        intensityColumn.setCellValueFactory(new PropertyValueFactory<>("intensity"));
+
+        chart.setItems(filteredData);
     }
 
     private void searchEarthquake() {
 
         String searchString = searchTextField.getText();
 
-        // on supprime toute du tableau et de la carte
-        chart.getChildren().removeIf(node -> GridPane.getRowIndex(node) > 1);
-        clearMapPoints();
+        if(!searchString.equals("")) {
+            // recherche des données correspondantes
+            findMatchingData(searchString);
+        }
+        else {
+            // pour récupérer et afficher toute les données
+            filteredData.clear();
+            filteredData.addAll(data);
+        }
 
-        // recherche des données correspondantes
-        ListProperty<Earthquakes> matchingData = findMatchingData(searchString);
         // met à jour le tableau et la carte
-        addGridPaneData(matchingData);
-        addMapPoints(matchingData);
+        addMapPoints(filteredData);
+        map.requestLayout();
     }
 
-    private ListProperty<Earthquakes> findMatchingData(String searchString) {
-        ListProperty<Earthquakes> matchingData = new SimpleListProperty<>();
-        for (Earthquakes earthquake : data) {
-            if (earthquake.getId().contains(searchString)) {
-                matchingData.add(earthquake);
+    private void findMatchingData(String searchString) {
+        filteredData.clear();
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getId().contains(searchString)) {
+                filteredData.add(data.get(i));
             }
         }
-        return matchingData;
     }
 }
