@@ -20,7 +20,7 @@
             <VBox prefHeight="700" prefWidth="680">
                 <HBox prefHeight="20">
                     <Label text="Recherche ID"/>
-                    <TextField fx:id="searchTextField"/>
+                    <TextField fx:id="searchTextField" promptText="Recherche un identifiant"/>
                 </HBox>
                 <TableView fx:id="chart" prefHeight="680">
                     <columns>
