@@ -27,16 +27,16 @@
 
     <center>
         <GridPane alignment="CENTER" hgap="50" vgap="50" styleClass="mainGrid">
-            <LineChart fx:id="lineChart" GridPane.columnIndex="0" GridPane.rowIndex="0" title="Nombre de séismes par années">
+            <LineChart fx:id="lineChart" GridPane.columnIndex="0" GridPane.rowIndex="0" title="Nombre de séismes par années" createSymbols="false">
                 <xAxis>
-                    <NumberAxis label="Date" />
+                    <NumberAxis label="Date" fx:id="xAxisLineChart" autoRanging="false"/>
                 </xAxis>
                 <yAxis>
                     <NumberAxis label="Nombre de séisme" />
                 </yAxis>
             </LineChart>
 
-            <PieChart fx:id="pieChart" GridPane.columnIndex="0" GridPane.rowIndex="1" title="Type de Choc">
+            <PieChart fx:id="pieChart" GridPane.columnIndex="0" GridPane.rowIndex="1" minWidth="500"  title="Type de Choc" legendVisible="false">
 
             </PieChart>
 
@@ -48,7 +48,7 @@
                                 <Font name="System Bold" size="24" />
                             </font>
                         </Label>
-                        <Label text="0" style="-fx-text-fill: white" fx:id="nbEarthQuackTotal">
+                        <Label text="0" style="-fx-text-fill: white" fx:id="nbEarthQuackTotalLabel">
                             <font>
                                 <Font name="System Bold" size="24" />
                             </font>
@@ -61,7 +61,7 @@
                                 <Font name="System Bold" size="24" />
                             </font>
                         </Label>
-                        <Label text="0" style="-fx-text-fill: white">
+                        <Label text="0" style="-fx-text-fill: white" fx:id="averageIntensityLabel">
                             <font>
                                 <Font name="System Bold" size="24" />
                             </font>
@@ -77,7 +77,7 @@
                                 <Font name="System Bold" size="24" />
                             </font>
                         </Label>
-                        <Label text="0" style="-fx-text-fill: white">
+                        <Label text="0" style="-fx-text-fill: white" fx:id="maxIntensityLabel">
                             <font>
                                 <Font name="System Bold" size="24" />
                             </font>
@@ -90,9 +90,9 @@
                                 <Font name="System Bold" size="24" />
                             </font>
                         </Label>
-                        <Label text="0" style="-fx-text-fill: white">
+                        <Label text="0" style="-fx-text-fill: white" fx:id="regionMostAffectedLabel">
                             <font>
-                                <Font name="System Bold" size="24" />
+                                <Font name="System Bold" size="18" />
                             </font>
                         </Label>
                     </VBox>
@@ -102,12 +102,12 @@
 
 <!--            Bas droite-->
 
-            <BarChart fx:id="barChart2" GridPane.columnIndex="1" GridPane.rowIndex="1" title="Séismes par région épicentrale">
+            <BarChart fx:id="barChart"  GridPane.columnIndex="1" GridPane.rowIndex="1" title="Séismes par région épicentrale" animated="false" legendVisible="false">
                 <xAxis >
-                    <CategoryAxis label="Date" />
+                    <CategoryAxis label="Date" fx:id="xAxisBarChart" layoutY="100"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis label="Population"/>
+                    <NumberAxis label="Population" fx:id="yAxisBarChart"/>
                 </yAxis>
 
             </BarChart>
