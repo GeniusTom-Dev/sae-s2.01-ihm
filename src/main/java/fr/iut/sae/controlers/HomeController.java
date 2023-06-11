@@ -1,12 +1,15 @@
 package fr.iut.sae.controlers;
 
 import fr.iut.sae.utils.CSVReader;
+import fr.iut.sae.utils.DataFilter;
 import fr.iut.sae.utils.Earthquakes;
 import fr.iut.sae.view.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -37,6 +40,20 @@ public class HomeController {
 
     // Variables
     private ArrayList<Earthquakes> data;
+    private ArrayList<Earthquakes> filtredData = new ArrayList<>();
+
+    @FXML
+    private TextField firstDate;
+    @FXML
+    private TextField lastDate;
+    @FXML
+    private TextField longitudeTextField;
+    @FXML
+    private TextField latitudeTextField;
+    @FXML
+    private TextField radiusTextField;
+    @FXML
+    private ComboBox<String> country;
 
     @FXML
     public void openFile() throws IOException {
@@ -57,16 +74,8 @@ public class HomeController {
                 isUploadImage.setFitHeight(30);
                 isUploadImage.setFitWidth(30);
 
-//                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("layout/dashboard.fxml"));
-//                loader.load();
-//                DashboardController controller = loader.getController();
-//                controller.setData(data);
-
-//                // envoie les données dans la classe EarthquakesResearchController.java
-//                FXMLLoader loaderEarthquakesResearch = new FXMLLoader(getClass().getClassLoader().getResource("layout/EarthquakesResearch.fxml"));
-//                loaderEarthquakesResearch.load();
-//                EarthquakesResearchController earthquakesResearchController = loaderEarthquakesResearch.getController();
-//                earthquakesResearchController.setData(data);
+                filtredData.addAll(new DataFilter().dataFilter(firstDate.getText(),lastDate.getText(),
+                        data,longitudeTextField.getText(),latitudeTextField.getText(),radiusTextField.getText()));
             }
         }
     }
@@ -75,6 +84,6 @@ public class HomeController {
     public void findHandler(){
         // Charger la vue EarthquakesResearch.fxml
         EarthquakesResearchController earthquakesResearchController = (EarthquakesResearchController) App.setScene("layout/EarthquakesResearch.fxml");
-        earthquakesResearchController.setData(data);
+        earthquakesResearchController.setData(filtredData);
     }
 }

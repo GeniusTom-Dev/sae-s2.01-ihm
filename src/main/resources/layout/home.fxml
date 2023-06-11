@@ -47,8 +47,8 @@
                     </font>
                 </Label>
 
-                <TextField promptText="De" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField promptText="A" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField promptText="De" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="firstDate"/>
+                <TextField promptText="A" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="lastDate"/>
             </GridPane>
 
             <GridPane alignment="CENTER" hgap="20" >
@@ -58,18 +58,7 @@
                     </font>
                 </Label>
 
-                <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <fx:define>
-                                <String fx:value="Français" />
-                                <String fx:value="Anglais" />
-                                <String fx:value="Espagnol" />
-                            </fx:define>
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-
+                <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="country"/>
                 <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <items >
                         <FXCollections fx:factory="observableArrayList">
@@ -90,9 +79,9 @@
                     </font>
                 </Label>
 
-                <TextField promptText="Longitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField promptText="Latitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField promptText="Rayon (en km)" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField promptText="Longitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="longitudeTextField" />
+                <TextField promptText="Latitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="latitudeTextField"/>
+                <TextField promptText="Rayon (en km)" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="radiusTextField"/>
             </GridPane>
 
             <Button text="Rechercher" disable="true" fx:id="findButton" onAction="#findHandler" prefWidth="270"/>
