@@ -7,10 +7,12 @@ import java.util.ArrayList;
 
 public class DataFilter {
 
-    public ArrayList<Earthquakes> dataFilter (String firstDate, String lastDate,ArrayList<Earthquakes> data,String longitude,String latitude,String radius){
+    private ArrayList<Earthquakes> filteredData = new ArrayList<>();
 
-        ArrayList<Earthquakes> filtredData = new ArrayList<>();
-        filtredData.addAll(data);
+    public ArrayList<Earthquakes> dataFilter (String firstDate, String lastDate,ArrayList<Earthquakes> data,String longitudeStr,String latitudeStr,String radiusStr){
+
+        filteredData.clear();
+        filteredData.addAll(data);
 
         // filtre sur les dates
         if (!firstDate.isEmpty() || !lastDate.isEmpty()) {
@@ -22,7 +24,7 @@ public class DataFilter {
                     int lastDateYear = Integer.parseInt(lastDate);
                     // si la date earthquake est avant la date demandé
                     if (lastDateYear < earthquakeDateYear) {
-                        filtredData.remove(i);
+                        filteredData.remove(i);
                     }
                 }
                 // si lastDate non renseigné
@@ -30,7 +32,7 @@ public class DataFilter {
                     int firstDateYear = Integer.parseInt(firstDate);
                     // si la date earthquake est après la date demandé
                     if (firstDateYear > earthquakeDateYear) {
-                        filtredData.remove(i);
+                        filteredData.remove(i);
                     }
                 }
                 // si les deux sont ont des valeurs
@@ -39,11 +41,56 @@ public class DataFilter {
                     int lastDateYear = Integer.parseInt(lastDate);
                     // si la date earthquake est après la date de début et avant celle de fin
                     if (firstDateYear > earthquakeDateYear || lastDateYear < earthquakeDateYear) {
-                        filtredData.remove(i);
+                        filteredData.remove(i);
                     }
                 }
             }
         }
-        return filtredData;
+        if (!latitudeStr.isEmpty() && !longitudeStr.isEmpty() && !radiusStr.isEmpty()) {
+            double latitudeDouble = Double.parseDouble(latitudeStr);
+            double longitudeDouble = Double.parseDouble(longitudeStr);
+            double radiusDouble = Double.parseDouble(radiusStr);
+
+            for (int i = filteredData.size() - 1; i >= 0; i--) {
+                Earthquakes earthquake = filteredData.get(i);
+                // verifie que earthquake a bien un localisation en longitude et latitude
+                if (!earthquake.getLatitude().isEmpty() && !earthquake.getLongitude().isEmpty()) {
+
+                    double earthquakeLatitude = Double.parseDouble(earthquake.getLatitude());
+                    double earthquakeLongitude = Double.parseDouble(earthquake.getLongitude());
+
+                    double distance = calculateDistance(latitudeDouble, longitudeDouble, earthquakeLatitude, earthquakeLongitude);
+
+                    // Vérifier si la distance est inférieure ou égale au rayon
+                    if (distance > radiusDouble) {
+                        filteredData.remove(i);
+                    }
+                }
+                else {
+                    filteredData.remove(i);
+                }
+            }
+
+        }
+        return filteredData;
     }
+
+    private double calculateDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
+        // Rayon de la Terre en kilomètres
+        double earthRadius = 6371;
+
+        double dLat = Math.toRadians(latitude2 - latitude1);
+        double dLon = Math.toRadians(longitude2 - longitude1);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(latitude1)) * Math.cos(Math.toRadians(latitude2))
+                * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        double distance = earthRadius * c;
+
+        return distance;
+    }
+
 }

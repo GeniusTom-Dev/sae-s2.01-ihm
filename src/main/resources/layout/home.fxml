@@ -79,8 +79,8 @@
                     </font>
                 </Label>
 
-                <TextField promptText="Longitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="longitudeTextField" />
-                <TextField promptText="Latitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="latitudeTextField"/>
+                <TextField promptText="Latitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="latitudeTextField" />
+                <TextField promptText="Longitude" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="longitudeTextField"/>
                 <TextField promptText="Rayon (en km)" focusTraversable="false" prefWidth="170" prefHeight="30" GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="radiusTextField"/>
             </GridPane>
 
