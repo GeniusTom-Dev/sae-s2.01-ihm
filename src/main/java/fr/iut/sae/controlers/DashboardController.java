@@ -1,6 +1,7 @@
 package fr.iut.sae.controlers;
 
 import fr.iut.sae.utils.Earthquakes;
+import javafx.beans.property.ListProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.fxml.FXML;
@@ -25,18 +26,19 @@ public class DashboardController{
     @FXML
     private Label nbEarthQuackTotal;
 
-    private ArrayList<Earthquakes> data;
+    private ListProperty<Earthquakes> data;
+//    private ArrayList<Earthquakes> data;
 
 
-    public void setData(ArrayList<Earthquakes> data){
+    public void setData(ListProperty<Earthquakes> data){
         this.data = data;
         this.initPieChart();
         this.initGeneralData();
     }
 
     public void initGeneralData(){
-        System.out.println(data.size());
-        nbEarthQuackTotal.setText("cooucou");
+//        System.out.println(data.size());
+//        nbEarthQuackTotal.setText("coucou");
 //        nbEarthQuackTotal.setText(String.valueOf(data.size()));
     }
 

@@ -57,22 +57,24 @@ public class HomeController {
                 isUploadImage.setFitHeight(30);
                 isUploadImage.setFitWidth(30);
 
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("layout/dashboard.fxml"));
-                loader.load();
-                DashboardController controller = loader.getController();
-                controller.setData(data);
+//                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("layout/dashboard.fxml"));
+//                loader.load();
+//                DashboardController controller = loader.getController();
+//                controller.setData(data);
 
-                // envoie les données dans la classe EarthquakesResearchController.java
-                FXMLLoader loaderEarthquakesResearch = new FXMLLoader(getClass().getClassLoader().getResource("layout/EarthquakesResearch.fxml"));
-                loaderEarthquakesResearch.load();
-                EarthquakesResearchController earthquakesResearchController = loaderEarthquakesResearch.getController();
-                earthquakesResearchController.setData(data);
+//                // envoie les données dans la classe EarthquakesResearchController.java
+//                FXMLLoader loaderEarthquakesResearch = new FXMLLoader(getClass().getClassLoader().getResource("layout/EarthquakesResearch.fxml"));
+//                loaderEarthquakesResearch.load();
+//                EarthquakesResearchController earthquakesResearchController = loaderEarthquakesResearch.getController();
+//                earthquakesResearchController.setData(data);
             }
         }
     }
 
     @FXML
     public void findHandler(){
-        App.setDashboard();
+        // Charger la vue EarthquakesResearch.fxml
+        EarthquakesResearchController earthquakesResearchController = (EarthquakesResearchController) App.setScene("layout/EarthquakesResearch.fxml");
+        earthquakesResearchController.setData(data);
     }
 }

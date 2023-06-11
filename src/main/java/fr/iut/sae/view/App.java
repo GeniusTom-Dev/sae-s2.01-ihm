@@ -24,27 +24,21 @@ public class App extends Application {
         appStage.show();
     }
 
+    public static <T> T setScene(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getClassLoader().getResource(fxmlPath));
+            root = loader.load();
+            appStage.setScene(new Scene(root));
+            return loader.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void setHome(){
         try{
             root = FXMLLoader.load(App.class.getClassLoader().getResource("layout/home.fxml"));
-            appStage.setScene(new Scene(root));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void setDashboard(){
-        try{
-            root = FXMLLoader.load(App.class.getClassLoader().getResource("layout/dashboard.fxml"));
-            appStage.setScene(new Scene(root));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void setEarthquakesResearch(){
-        try{
-            root = FXMLLoader.load(App.class.getClassLoader().getResource("layout/EarthquakesResearch.fxml"));
             appStage.setScene(new Scene(root));
         }catch (Exception e){
             e.printStackTrace();

@@ -10,39 +10,33 @@
             xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="fr.iut.sae.controlers.EarthquakesResearchController">
 
+    <top>
+        <VBox alignment="CENTER_RIGHT">
+            <Button text="DashBoard" fx:id="toDashBoard" alignment="CENTER_RIGHT" prefHeight="20" onAction="#toDashboard"/>
+        </VBox>
+    </top>
     <center>
         <HBox>
-            <VBox prefHeight="720" prefWidth="680">
-                <HBox>
+            <VBox prefHeight="700" prefWidth="680">
+                <HBox prefHeight="20">
                     <Label text="Recherche ID"/>
                     <TextField fx:id="searchTextField"/>
                 </HBox>
-                <ScrollPane>
-                    <GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="5" fx:id="chart">
-                        <!-- selection de l'attribut recherché -->
-                        <CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="checkBoxId"/>
-                        <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="checkBoxDate"/>
-                        <CheckBox GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="checkBoxHour"/>
-                        <CheckBox GridPane.columnIndex="3" GridPane.rowIndex="0" fx:id="checkBoxName"/>
-                        <CheckBox GridPane.columnIndex="4" GridPane.rowIndex="0" fx:id="checkBoxIntensity"/>
-                        <CheckBox GridPane.columnIndex="5" GridPane.rowIndex="0" fx:id="checkBoxQuality"/>
-                        <CheckBox GridPane.columnIndex="6" GridPane.rowIndex="0" fx:id="checkBoxArea"/>
-                        <!-- première ligne (fixe) -->
-                        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Identifiant"/>
-                        <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="Date (AAAA/MM/JJ)"/>
-                        <Label GridPane.columnIndex="2" GridPane.rowIndex="1" text="Heure"/>
-                        <Label GridPane.columnIndex="3" GridPane.rowIndex="1" text="Nom"/>
-                        <Label GridPane.columnIndex="4" GridPane.rowIndex="1" text="Intensité épicentrale"/>
-                        <Label GridPane.columnIndex="5" GridPane.rowIndex="1" text="Qualité intensité épicentrale"/>
-                        <Label GridPane.columnIndex="6" GridPane.rowIndex="1" text="Région épicentrale"/>
-                    </GridPane>
-                </ScrollPane>
+                <TableView fx:id="chart" prefHeight="680">
+                    <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="75" text="Identifiant"/>
+                        <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
+                        <TableColumn fx:id="regionColumn" prefWidth="200.0" text="Région" />
+                        <TableColumn fx:id="nameColumn" prefWidth="225" text="Nom"/>
+                        <TableColumn fx:id="intensityColumn" prefWidth="75" text="Intensité" />
+                    </columns>
+                </TableView>
             </VBox>
-            <VBox fx:id="mapZone" prefWidth="600" prefHeight="720">
-                <MapView fx:id="map" prefWidth="600" prefHeight="650"/>
+            <VBox fx:id="mapZone" prefWidth="600" prefHeight="700">
+                <MapView fx:id="map" prefWidth="600" prefHeight="630"/>
                 <Label alignment="CENTER" text="Légende"/>
 
-                <GridPane alignment="CENTER" hgap="5" vgap="5" prefWidth="600">
+                <GridPane alignment="CENTER" hgap="5" vgap="5" prefWidth="600" prefHeight="70">
                     <Circle GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="unknown"/>
                     <Label text="Ressenti intensité inconnue" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
