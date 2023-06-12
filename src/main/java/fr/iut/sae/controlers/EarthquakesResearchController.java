@@ -10,6 +10,7 @@ import fr.iut.sae.App;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,16 +19,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EarthquakesResearchController {
 
     private ListProperty<Earthquakes> data = new SimpleListProperty<>();
+    private ListProperty<Earthquakes> originalData = new SimpleListProperty<>();
     private ListProperty<Earthquakes> filteredData = new SimpleListProperty<>(FXCollections.observableArrayList());
     private ArrayList<MapLayer> mapLayersList = new ArrayList<>();
     private ArrayList<MapPoint> mapPointsList = new ArrayList<>();
 
-    public void setData(ArrayList<Earthquakes> data) {
+    public void setData(ArrayList<Earthquakes> originalData, ArrayList<Earthquakes> data) {
         this.data.set(FXCollections.observableList(data));
+        this.originalData.set(FXCollections.observableList(originalData));
     }
 
 
@@ -68,8 +72,6 @@ public class EarthquakesResearchController {
     @FXML
     TableColumn<Object,Object> intensityColumn;
 
-    @FXML
-    TextField searchTextField;
 
     @FXML
     public void initialize() {
@@ -77,7 +79,6 @@ public class EarthquakesResearchController {
         initializeLegend();
         initializeTableView();
         // regarde lorsque l'utilisateur édite le texte dans le TextField
-        searchTextField.selectionProperty().addListener(observable -> searchEarthquake());
         // regarde lorsque les datas sont chargés dans l'application
         data.addListener((observableValue, earthquakes, newValue) -> {
             if (newValue != null && !newValue.isEmpty()) {
@@ -223,24 +224,6 @@ public class EarthquakesResearchController {
         chart.setItems(filteredData);
     }
 
-    private void searchEarthquake() {
-
-        String searchString = searchTextField.getText();
-
-        if(!searchString.equals("")) {
-            // recherche des données correspondantes
-            findMatchingData(searchString);
-        }
-        else {
-            // pour récupérer et afficher toute les données
-            filteredData.clear();
-            filteredData.addAll(data);
-        }
-
-        // met à jour le tableau et la carte
-        addMapPoints(filteredData);
-        map.requestLayout();
-    }
 
     private void findMatchingData(String searchString) {
         filteredData.clear();
@@ -255,6 +238,12 @@ public class EarthquakesResearchController {
     private void toDashboard() {
         DashboardController DashboardController = (DashboardController) App.setScene("layout/dashboard.fxml");
         assert DashboardController != null;
-        DashboardController.setData(data);
+        DashboardController.setData(data, originalData); // a verif (original)
+    }
+
+    public void toHome() {
+        HomeController homeController = (HomeController) App.setScene("layout/home.fxml");
+        assert homeController != null;
+        homeController.setData(new ArrayList<>(originalData.get())); // a verif (original)
     }
 }

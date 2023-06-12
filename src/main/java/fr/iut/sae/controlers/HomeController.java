@@ -5,6 +5,7 @@ import fr.iut.sae.utils.DataFilter;
 import fr.iut.sae.utils.Earthquakes;
 import fr.iut.sae.App;
 import javafx.beans.binding.Binding;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -72,8 +73,14 @@ public class HomeController implements Initializable {
         radiusTextField.disableProperty().bind(countryComboBox.valueProperty().isNotNull().and(countryComboBox.valueProperty().isNotEqualTo("")));
     }
 
+    public void setData(ArrayList<Earthquakes> originalData) {
+        this.data = originalData;
+        validFiles();
+
+    }
+
     @FXML
-    public void openFile() throws IOException {
+    public void openFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sélectionner un fichier CSV");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers CSV", "*.csv"));
@@ -84,19 +91,21 @@ public class HomeController implements Initializable {
             this.data = new CSVReader().readCSV(selectedFile);
 
             if(data.size() > 0){
-                findButton.setDisable(false);
-                openFileButton.setDisable(true);
+                validFiles();
 
-                fillComboxBox();
-                Image newImage = new Image("assets/valid.png");
-                isUploadImage.setImage(newImage);
-                isUploadImage.setFitHeight(30);
-                isUploadImage.setFitWidth(30);
-
-                filtredData.addAll(new DataFilter().dataFilter(firstDate.getText(),lastDate.getText(),
-                        data,longitudeTextField.getText(),latitudeTextField.getText(),radiusTextField.getText()));
             }
         }
+    }
+
+    public void validFiles(){
+        findButton.setDisable(false);
+        openFileButton.setDisable(true);
+
+        fillComboxBox();
+        Image newImage = new Image("assets/valid.png");
+        isUploadImage.setImage(newImage);
+        isUploadImage.setFitHeight(30);
+        isUploadImage.setFitWidth(30);
     }
 
     @FXML
@@ -104,7 +113,10 @@ public class HomeController implements Initializable {
         // Charger la vue EarthquakesResearch.fxml
         EarthquakesResearchController earthquakesResearchController = (EarthquakesResearchController) App.setScene("layout/EarthquakesResearch.fxml");
         assert earthquakesResearchController != null;
-        earthquakesResearchController.setData(filtredData);
+        filtredData.addAll(new DataFilter().dataFilter(firstDate.getText(),lastDate.getText(),
+                data,longitudeTextField.getText(),latitudeTextField.getText(),radiusTextField.getText()));
+
+        earthquakesResearchController.setData(data, filtredData);
     }
 
     public void fillComboxBox(){

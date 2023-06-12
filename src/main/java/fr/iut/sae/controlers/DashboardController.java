@@ -1,13 +1,16 @@
 package fr.iut.sae.controlers;
 
+import fr.iut.sae.App;
 import fr.iut.sae.utils.Earthquakes;
 import javafx.beans.property.ListProperty;
+import javafx.event.ActionEvent;
 import javafx.geometry.Side;
 import javafx.scene.chart.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,10 +49,12 @@ public class DashboardController{
     private NumberAxis xAxisLineChart;
 
     private ListProperty<Earthquakes> data;
+    private ListProperty<Earthquakes> originalData;
 
 
-    public void setData(ListProperty<Earthquakes> data){
+    public void setData(ListProperty<Earthquakes> data, ListProperty<Earthquakes> originalData){
         this.data = data;
+        this.originalData = originalData;
         this.initLineChart();
         this.initGeneralData();
         this.initPieChart();
@@ -176,7 +181,6 @@ public class DashboardController{
         }
 
         series.setName("Région");
-        System.out.println(series.getData());
 
         yAxisBarChart.setSide(Side.BOTTOM); // Positionne l'axe y à gauche
         xAxisBarChart.setSide(Side.LEFT);
@@ -226,4 +230,15 @@ public class DashboardController{
         return result.toString();
     }
 
+    public void toHome() {
+        HomeController homeController = (HomeController) App.setScene("layout/home.fxml");
+        assert homeController != null;
+        homeController.setData(new ArrayList<>(originalData.get())); // a verif (original)
+    }
+
+    public void toResearch() {
+        EarthquakesResearchController earthquakesResearchController = (EarthquakesResearchController) App.setScene("layout/EarthquakesResearch.fxml");
+        assert earthquakesResearchController != null;
+        earthquakesResearchController.setData(new ArrayList<>(originalData.get()), new ArrayList<>(data.get())); // a verif (original)
+    }
 }

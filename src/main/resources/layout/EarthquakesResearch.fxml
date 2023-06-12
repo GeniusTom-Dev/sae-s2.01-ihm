@@ -5,23 +5,39 @@
 
 <?import com.gluonhq.maps.MapView?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 <BorderPane maxHeight="720" maxWidth="1280" prefHeight="720" prefWidth="1280"
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
-            fx:controller="fr.iut.sae.controlers.EarthquakesResearchController">
+            fx:controller="fr.iut.sae.controlers.EarthquakesResearchController"
+            stylesheets="@/styles/EarthquakesResearch.css">
 
     <top>
-        <VBox alignment="CENTER_RIGHT">
-            <Button text="DashBoard" alignment="CENTER_RIGHT" prefHeight="20" onAction="#toDashboard"/>
-        </VBox>
+        <HBox alignment="CENTER" style="-fx-padding: 0 25 0 25" prefHeight="50">
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Button text="Menu pricipal" prefHeight="30" onAction="#toHome"/>
+            </VBox>
+
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                <Label text="Recherche de Séisme" >
+                    <font>
+                        <Font name="System Bold" size="24" />
+                    </font>
+                </Label>
+            </VBox>
+
+            <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                <Button text="Tableau de bord" prefHeight="30" onAction="#toDashboard"/>
+            </VBox>
+        </HBox>
     </top>
     <center>
         <HBox>
             <VBox prefHeight="700" prefWidth="680">
-                <HBox prefHeight="20">
-                    <Label text="Recherche ID"/>
-                    <TextField fx:id="searchTextField" promptText="Recherche un identifiant"/>
-                </HBox>
+<!--                <HBox prefHeight="20">-->
+<!--                    <Label text="Recherche ID"/>-->
+<!--                    <TextField fx:id="searchTextField" promptText="Recherche un identifiant"/>-->
+<!--                </HBox>-->
                 <TableView fx:id="chart" prefHeight="680">
                     <columns>
                         <TableColumn fx:id="idColumn" prefWidth="75" text="Identifiant"/>
@@ -38,31 +54,31 @@
 
                 <GridPane alignment="CENTER" hgap="5" vgap="5" prefWidth="600" prefHeight="70">
                     <Circle GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="unknown"/>
-                    <Label text="Ressenti intensité inconnue" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" text="Ressenti intensité inconnue" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="twoToTwoPointFive"/>
-                    <Label text="2 et 2.5 ressenti par de rares personnes" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="2" GridPane.rowIndex="0" fx:id="twoToTwoPointFive"/>
+                    <Label text="2 et 2.5 ressenti par de rares personnes" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="threeToThreePointFive"/>
-                    <Label text="3 et 3.5 ressenti par quelques personnes" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="threeToThreePointFive"/>
+                    <Label text="3 et 3.5 ressenti par quelques personnes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="fourToFourPointFive"/>
-                    <Label text="4 et 4.5 ressenti largement" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="fourToFourPointFive"/>
+                    <Label text="4 et 4.5 ressenti largement" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="fiveToFivePointFive"/>
-                    <Label text="5 et 5.5 ressenti par tout le monde" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="fiveToFivePointFive"/>
+                    <Label text="5 et 5.5 ressenti par tout le monde" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="5" fx:id="sixToSixPointFive"/>
-                    <Label text="6 et 6.5 dommages légers" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="sixToSixPointFive"/>
+                    <Label text="6 et 6.5 dommages légers" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="6" fx:id="sevenToSevenPointFive"/>
-                    <Label text="7 et 7.5 dommages prononcés" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="sevenToSevenPointFive"/>
+                    <Label text="7 et 7.5 dommages prononcés" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="7" fx:id="eightToEightPointFive"/>
-                    <Label text="8 et 8.5 dégats massifs" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="2" GridPane.rowIndex="3" fx:id="eightToEightPointFive"/>
+                    <Label text="8 et 8.5 dégats massifs" GridPane.columnIndex="3" GridPane.rowIndex="3" />
 
-                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="8" fx:id="nineToNinePointFive"/>
-                    <Label text="9 et 9.5 destructions nombreuses" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                    <Circle GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="nineToNinePointFive"/>
+                    <Label text="9 et 9.5 destructions nombreuses" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
                 </GridPane>
             </VBox>
