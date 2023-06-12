@@ -9,8 +9,8 @@ public class DataFilter {
 
     private ArrayList<Earthquakes> filteredData = new ArrayList<>();
 
-    public ArrayList<Earthquakes> dataFilter (String firstDate, String lastDate,ArrayList<Earthquakes> data,String longitudeStr,String latitudeStr,String radiusStr){
-
+    public ArrayList<Earthquakes> dataFilter (String firstDate, String lastDate,ArrayList<Earthquakes> data,
+                                              String longitudeStr,String latitudeStr,String radiusStr, String country){
         filteredData.clear();
         filteredData.addAll(data);
 
@@ -71,6 +71,14 @@ public class DataFilter {
                 }
             }
 
+        }
+        if (!country.isEmpty()) {
+            for (int i = filteredData.size() - 1; i >= 0; i--) {
+                Earthquakes earthquake = filteredData.get(i);
+                if (!earthquake.getRegion().equals(country)) {
+                    filteredData.remove(i);
+                }
+            }
         }
         return filteredData;
     }
