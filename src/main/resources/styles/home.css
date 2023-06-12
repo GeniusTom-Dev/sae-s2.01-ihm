@@ -14,3 +14,13 @@
     -fx-background-color: #ffd634;
     -fx-text-fill: #363a53;
 }
+
+.region-box {
+    -fx-padding: 0 0 0 40;
+}
+
+.cell{
+    -fx-background-color: #263553;
+    -fx-text-fill: white;
+}
+

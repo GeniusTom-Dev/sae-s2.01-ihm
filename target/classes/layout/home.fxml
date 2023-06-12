@@ -16,6 +16,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+<?import javafx.scene.control.DatePicker?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.iut.sae.controlers.HomeController" prefWidth="1280" prefHeight="720"
             stylesheets="@/styles/home.css" fx:id="borderPane">
@@ -47,30 +48,22 @@
                     </font>
                 </Label>
 
-                <TextField promptText="De" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="firstDate"/>
-                <TextField promptText="A" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="lastDate"/>
+                <DatePicker prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="firstDdzdate"/>
+                <DatePicker prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="lastDzdzate"/>
+
+<!--                <TextField promptText="De" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="firstDate"/>-->
+<!--                <TextField promptText="A" focusTraversable="false" prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="lastDate"/>-->
             </GridPane>
 
-            <GridPane alignment="CENTER" hgap="20" >
+            <VBox spacing="20" styleClass="region-box">
                 <Label text="Localisation" style="-fx-text-fill: #2aa8df;" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <font>
                         <Font size="20"/>
                     </font>
                 </Label>
 
-                <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="country"/>
-                <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <items >
-                        <FXCollections fx:factory="observableArrayList">
-                            <fx:define>
-                                <String fx:value="Français" />
-                                <String fx:value="Anglais" />
-                                <String fx:value="Espagnol" />
-                            </fx:define>
-                        </FXCollections>
-                    </items>
-                </ComboBox>
-            </GridPane>
+                <ComboBox prefWidth="270" prefHeight="30" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="countryComboBox" disable="true"/>
+            </VBox>
 
             <GridPane alignment="CENTER" hgap="10" >
                 <Label text="Rayon de recherche (Coordonnées WGS 84)" style="-fx-text-fill: #2aa8df;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">

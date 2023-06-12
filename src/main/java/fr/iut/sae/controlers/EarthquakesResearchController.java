@@ -6,7 +6,7 @@ import com.gluonhq.maps.MapView;
 
 import fr.iut.sae.utils.CustomCircleMarkerLayer;
 import fr.iut.sae.utils.Earthquakes;
-import fr.iut.sae.view.App;
+import fr.iut.sae.App;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;

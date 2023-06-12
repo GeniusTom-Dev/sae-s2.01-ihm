@@ -1,4 +1,4 @@
-package fr.iut.sae.view;
+package fr.iut.sae;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
