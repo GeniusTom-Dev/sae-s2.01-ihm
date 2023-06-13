@@ -191,8 +191,8 @@ public class EarthquakesResearchController {
                 }
             }
         }
-        MapPoint replace = new MapPoint(map.getCenter().getLatitude()+0.0000001, map.getCenter().getLongitude()+0.000001);
-        map.flyTo(0,replace,0.5);
+        MapPoint replace = new MapPoint(46.227638+000000.1, 2.213749+000000.1);
+        map.flyTo(0,replace,0.1);
 
     }
 
