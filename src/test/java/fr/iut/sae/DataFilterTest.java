@@ -8,8 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe contient les tests unitaires pour la classe DataFilter.
+ */
 public class DataFilterTest {
 
+    /**
+     * Génère un exemple de données pour les tests.
+     *
+     * @return Une ArrayList d'objets Earthquakes contenant les données de test.
+     */
     public ArrayList<Earthquakes> generateDataExample(){
         ArrayList<Earthquakes> data = new ArrayList<>();
         data.add(new Earthquakes(new String[]{"260002","1549/01/16","22 h","BASSIN DE MONTELIMAR (MONTELIMAR)","DAUPHINE","GROUPE DE SECOUSSES D UN ESSAIM","839077.32","6381274.63","44.52","4.75","5","INCERTAINE"}));
@@ -25,12 +33,18 @@ public class DataFilterTest {
         return data;
     }
 
+    /**
+     * Teste le filtre sans aucun critère de recherche.
+     */
     @Test
     public void testNoFilter(){
         ArrayList<Earthquakes> data = generateDataExample();
         assertEquals(data, new DataFilter().dataFilter(data, "", "", "", "", "", ""));
     }
 
+    /**
+     * Teste le filtre en spécifiant une première date.
+     */
     @Test
     public void testFirstDate(){
         ArrayList<Earthquakes> originalData = generateDataExample();
@@ -43,6 +57,9 @@ public class DataFilterTest {
         assertEquals(testData, new DataFilter().dataFilter(originalData, "1700", "", "", "", "", ""));
     }
 
+    /**
+     * Teste le filtre en spécifiant une dernière date.
+     */
     @Test
     public void testLastDate(){
         ArrayList<Earthquakes> originalData = generateDataExample();
@@ -55,6 +72,9 @@ public class DataFilterTest {
         assertEquals(testData, new DataFilter().dataFilter(originalData, "", "1700", "", "", "", ""));
     }
 
+    /**
+     * Teste le filtre en spécifiant à la fois une première et une dernière date.
+     */
     @Test
     public void testFirstAndLastDate(){
         ArrayList<Earthquakes> originalData = generateDataExample();
@@ -66,6 +86,9 @@ public class DataFilterTest {
         assertEquals(testData, new DataFilter().dataFilter(originalData, "1700", "1743", "", "", "", ""));
     }
 
+    /**
+     * Teste le filtre en spécifiant des coordonnées géographiques.
+     */
     @Test
     public void testCoordinates(){
         ArrayList<Earthquakes> originalData = generateDataExample();
@@ -75,6 +98,9 @@ public class DataFilterTest {
         assertEquals(testData,new DataFilter().dataFilter(originalData, "", "", "46","6", "245", ""));
     }
 
+    /**
+     * Teste le filtre en spécifiant un pays.
+     */
     @Test
     public void testCountry(){
         ArrayList<Earthquakes> originalData = generateDataExample();
@@ -84,6 +110,9 @@ public class DataFilterTest {
         assertEquals(testData, new DataFilter().dataFilter(originalData, "", "", "", "", "", "ALPES MARITIMES"));
     }
 
+    /**
+     * Teste le filtre en spécifiant plusieurs critères de recherche.
+     */
     @Test
     public void testMultipleFilters(){
         ArrayList<Earthquakes> originalData = generateDataExample();

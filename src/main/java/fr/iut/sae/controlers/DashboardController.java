@@ -3,7 +3,6 @@ package fr.iut.sae.controlers;
 import fr.iut.sae.App;
 import fr.iut.sae.utils.Earthquakes;
 import javafx.beans.property.ListProperty;
-import javafx.event.ActionEvent;
 import javafx.geometry.Side;
 import javafx.scene.chart.*;
 import javafx.fxml.FXML;
@@ -15,7 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class DashboardController{
+/**
+ * Contrôleur du tableau de bord.
+ */
+public class DashboardController {
 
     @FXML
     private LineChart<Number, Number> lineChart;
@@ -32,7 +34,6 @@ public class DashboardController{
     @FXML
     private NumberAxis yAxisBarChart;
 
-//    Import Labels from FXML
     @FXML
     private Label nbEarthQuackTotalLabel;
 
@@ -51,8 +52,13 @@ public class DashboardController{
     private ListProperty<Earthquakes> data;
     private ListProperty<Earthquakes> originalData;
 
-
-    public void setData(ListProperty<Earthquakes> data, ListProperty<Earthquakes> originalData){
+    /**
+     * Définit les données à afficher dans le tableau de bord et appelle les fonctions d'initialisation.
+     *
+     * @param data          Les données des séismes.
+     * @param originalData  Les données d'origines des séismes.
+     */
+    public void setData(ListProperty<Earthquakes> data, ListProperty<Earthquakes> originalData) {
         this.data = data;
         this.originalData = originalData;
         this.initLineChart();
@@ -61,44 +67,40 @@ public class DashboardController{
         this.initBarChart();
     }
 
-    public void initGeneralData(){
-        //Variables
+    /**
+     * Initialise les données générales du tableau de bord.
+     */
+    public void initGeneralData() {
         double averageMagnitude = 0;
         double averageSize = 0;
         double maxIntensity = 0;
         HashMap<String, Integer> regionMostAffected = getEarthQuackByRegion();
         String regionMostAffectedString = "";
 
-
-        //Set Total Earthquack
         nbEarthQuackTotalLabel.setText(String.valueOf(data.size()));
 
-        //Average Intensity & Max Intensity
         for (Earthquakes earthQuack : data) {
-            if(earthQuack.getIntensity() != null){
+            if (earthQuack.getIntensity() != null && !earthQuack.getIntensity().isEmpty()) {
+                System.out.println(earthQuack.getIntensity());
                 averageMagnitude += Double.parseDouble(earthQuack.getIntensity());
                 averageSize++;
 
-                if(Double.parseDouble(earthQuack.getIntensity()) > maxIntensity){
+                if (Double.parseDouble(earthQuack.getIntensity()) > maxIntensity) {
                     maxIntensity = Double.parseDouble(earthQuack.getIntensity());
                 }
             }
         }
-        //Format Average Intensity
+
         DecimalFormat df = new DecimalFormat("#.##");
 
-        //Set Average Intensity & Max Intensity
         averageIntensityLabel.setText(String.valueOf(df.format(averageMagnitude / averageSize)));
         maxIntensityLabel.setText(String.valueOf(maxIntensity));
 
-        //Region Most Affected
-
-
         for (Map.Entry<String, Integer> entry : regionMostAffected.entrySet()) {
-            if(regionMostAffectedString.isEmpty()){
+            if (regionMostAffectedString.isEmpty()) {
                 regionMostAffectedString = entry.getKey();
-            }else{
-                if(entry.getValue() > regionMostAffected.get(regionMostAffectedString)){
+            } else {
+                if (entry.getValue() > regionMostAffected.get(regionMostAffectedString)) {
                     regionMostAffectedString = entry.getKey();
                 }
             }
@@ -109,15 +111,18 @@ public class DashboardController{
         regionMostAffectedLabel.setText(formatRegionString);
     }
 
-    public void initLineChart(){
+    /**
+     * Initialise le graphique en ligne.
+     */
+    public void initLineChart() {
         HashMap<Integer, Integer> earthquakesByYear = new HashMap<>();
         XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>();
-        dataSeries.setName("Année du séisme");
+        dataSeries.setName("Year of Earthquake");
         int maxYear = 0;
         int minYear = 0;
 
-        for(Earthquakes e : data){
-            if(!e.getDate().isEmpty()){
+        for (Earthquakes e : data) {
+            if (!e.getDate().isEmpty()) {
                 Integer year = (int) Math.round(Integer.parseInt(e.getDate().split("/")[0]) / 10.0) * 10;
 
                 if (earthquakesByYear.containsKey(year)) {
@@ -126,17 +131,17 @@ public class DashboardController{
                     earthquakesByYear.put(year, 1);
                 }
 
-                if(maxYear == 0 && minYear == 0){
+                if (maxYear == 0 && minYear == 0) {
                     maxYear = year;
                     minYear = year;
-                }else{
-                    if(year < minYear) minYear = year;
-                    if(year > maxYear) maxYear = year;
+                } else {
+                    if (year < minYear) minYear = year;
+                    if (year > maxYear) maxYear = year;
                 }
             }
         }
 
-        for(Map.Entry<Integer, Integer> entry : earthquakesByYear.entrySet()){
+        for (Map.Entry<Integer, Integer> entry : earthquakesByYear.entrySet()) {
             dataSeries.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
         }
 
@@ -147,13 +152,16 @@ public class DashboardController{
         lineChart.getData().add(dataSeries);
     }
 
-    public void initPieChart(){
+    /**
+     * Initialise le graphique en secteurs.
+     */
+    public void initPieChart() {
         HashMap<String, Integer> earthquakesByShock = new HashMap<>();
         int countShock = 0;
 
-        for(Earthquakes e : data){
-            if(!e.getShock().isEmpty()){
-                if (earthquakesByShock.containsKey(formatCaseString(e.getShock()))){
+        for (Earthquakes e : data) {
+            if (!e.getShock().isEmpty()) {
+                if (earthquakesByShock.containsKey(formatCaseString(e.getShock()))) {
                     earthquakesByShock.put(formatCaseString(e.getShock()), earthquakesByShock.get(formatCaseString(e.getShock())) + 1);
                     countShock++;
                 } else {
@@ -163,7 +171,7 @@ public class DashboardController{
             }
         }
 
-        for(Map.Entry<String, Integer> entry : earthquakesByShock.entrySet()){
+        for (Map.Entry<String, Integer> entry : earthquakesByShock.entrySet()) {
             PieChart.Data data = new PieChart.Data(entry.getKey(), entry.getValue());
             pieChart.getData().add(data);
         }
@@ -173,23 +181,30 @@ public class DashboardController{
         }
     }
 
-    public void initBarChart(){
+    /**
+     * Initialise le graphique en barres.
+     */
+    public void initBarChart() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        for (Map.Entry<String, Integer> entry : getEarthQuackByRegion().entrySet()){
+        for (Map.Entry<String, Integer> entry : getEarthQuackByRegion().entrySet()) {
             series.getData().add(new XYChart.Data<>(formatCaseString(entry.getKey()), entry.getValue()));
         }
 
         series.setName("Région");
 
-        yAxisBarChart.setSide(Side.BOTTOM); // Positionne l'axe y à gauche
+        yAxisBarChart.setSide(Side.BOTTOM);
         xAxisBarChart.setSide(Side.LEFT);
 
         barChart.getData().add(series);
-
     }
 
-    public HashMap<String, Integer> getEarthQuackByRegion(){
+    /**
+     * Retourne le nombre de séismes par région.
+     *
+     * @return Le nombre de séismes par région.
+     */
+    public HashMap<String, Integer> getEarthQuackByRegion() {
         HashMap<String, Integer> earthquakesByRegion = new HashMap<>();
 
         for (Earthquakes earthQuack : data) {
@@ -199,14 +214,19 @@ public class DashboardController{
                 } else {
                     earthquakesByRegion.put(earthQuack.getRegion(), 1);
                 }
-
             }
         }
 
         return earthquakesByRegion;
     }
 
-    public String formatCaseString(String value){
+    /**
+     * Formate la chaîne de caractères en respectant la casse.
+     *
+     * @param value La chaîne de caractères à formater.
+     * @return La chaîne de caractères formatée.
+     */
+    public String formatCaseString(String value) {
         String[] wordsString = value.split(" ");
         StringBuilder result = new StringBuilder();
 
@@ -217,11 +237,11 @@ public class DashboardController{
         result.append(convertedWord);
         result.append(" ");
 
-        for(int i = 1; i < wordsString.length; i++) {
-            if(i%3 == 0){
+        for (int i = 1; i < wordsString.length; i++) {
+            if (i % 3 == 0) {
                 result.append(wordsString[i].toLowerCase());
                 result.append("\n");
-            }else{
+            } else {
                 result.append(wordsString[i].toLowerCase());
                 result.append(" ");
             }
@@ -230,15 +250,21 @@ public class DashboardController{
         return result.toString();
     }
 
+    /**
+     * Retourne à la page d'accueil.
+     */
     public void toHome() {
         HomeController homeController = (HomeController) App.setScene("layout/home.fxml");
         assert homeController != null;
-        homeController.setData(new ArrayList<>(originalData.get())); // a verif (original)
+        homeController.setData(new ArrayList<>(originalData.get()));
     }
 
+    /**
+     * Accède à la page de recherche des séismes.
+     */
     public void toResearch() {
         EarthquakesResearchController earthquakesResearchController = (EarthquakesResearchController) App.setScene("layout/EarthquakesResearch.fxml");
         assert earthquakesResearchController != null;
-        earthquakesResearchController.setData(new ArrayList<>(originalData.get()), new ArrayList<>(data.get())); // a verif (original)
+        earthquakesResearchController.setData(new ArrayList<>(originalData.get()), new ArrayList<>(data.get()));
     }
 }
