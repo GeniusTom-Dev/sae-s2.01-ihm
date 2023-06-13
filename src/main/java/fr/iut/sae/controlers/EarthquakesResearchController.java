@@ -10,7 +10,6 @@ import fr.iut.sae.App;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,8 +18,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * Contrôleur responsable de la recherche des séismes dans une application JavaFX.
+ * Ce contrôleur gère les interactions avec l'interface utilisateur et la manipulation des données liées aux séismes.
+ * Il affiche les séismes sur une carte, les filtre et les affiche dans un tableau.
+ *
+ * @author Maxime TAMARIN
+ * @version 1.0
+ */
 public class EarthquakesResearchController {
 
     private ListProperty<Earthquakes> data = new SimpleListProperty<>();
@@ -71,13 +77,15 @@ public class EarthquakesResearchController {
     @FXML
     TableColumn<Object,Object> intensityColumn;
 
-
+    /**
+     * Initialise le contrôleur et les composants de l'interface utilisateur.
+     * Cette méthode est appelée au chargement de la vue correspondante.
+     */
     @FXML
     public void initialize() {
         initializeMap();
         initializeLegend();
         initializeTableView();
-        // regarde lorsque l'utilisateur édite le texte dans le TextField
         // regarde lorsque les datas sont chargés dans l'application
         data.addListener((observableValue, earthquakes, newValue) -> {
             if (newValue != null && !newValue.isEmpty()) {
@@ -89,6 +97,10 @@ public class EarthquakesResearchController {
         });
     }
 
+    /**
+     * Initialise la carte affichée dans l'interface utilisateur.
+     * Cette méthode configure les paramètres de la carte et centre la carte sur un point de référence au centre de la France.
+     */
     private void initializeMap() {
         // Définit la plate-forme pour éviter "javafx.platform is not defined"
         System.setProperty("javafx.platform", "desktop");
@@ -106,6 +118,10 @@ public class EarthquakesResearchController {
         map.flyTo(0, mapCenter, 0.08);
     }
 
+    /**
+     * Initialise la légende des intensités des séismes.
+     * Cette méthode attribue des couleurs aux cercles représentant les différentes intensités de séismes.
+     */
     private void initializeLegend () {
         // quand on ne connait pas la magnitude du seisme
         unknown.setRadius(5);
@@ -137,6 +153,12 @@ public class EarthquakesResearchController {
 
     }
 
+    /**
+     * Ajoute les points de séismes sur la carte.
+     * Cette méthode récupère les données de séismes, crée des marqueurs de cercle personnalisés et les ajoute à la carte.
+     *
+     * @param earthquakes La liste des séismes à afficher sur la carte.
+     */
     private void addMapPoints (ListProperty<Earthquakes> earthquakes) {
         clearMapPoints();
         for (Earthquakes earthquake : earthquakes) {
@@ -196,6 +218,10 @@ public class EarthquakesResearchController {
 
     }
 
+    /**
+     * Supprime les points de séismes de la carte.
+     * Cette méthode supprime tous les marqueurs de séismes de la carte.
+     */
     private void clearMapPoints () {
         for (MapLayer mapLayer : mapLayersList) {
             map.removeLayer(mapLayer);
@@ -204,6 +230,10 @@ public class EarthquakesResearchController {
         mapLayersList.clear();
     }
 
+    /**
+     * Initialise le tableau affichant les séismes.
+     * Cette méthode configure les colonnes du tableau et lie les données filtrées au tableau chart.
+     */
     private void initializeTableView () {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -214,16 +244,25 @@ public class EarthquakesResearchController {
         chart.setItems(filteredData);
     }
 
+    /**
+     * Redirige vers le tableau de bord de l'application.
+     * Cette méthode est appelée lorsqu'un bouton de navigation vers le tableau de bord est cliqué.
+     */
     @FXML
     private void toDashboard() {
         DashboardController DashboardController = (DashboardController) App.setScene("layout/dashboard.fxml");
         assert DashboardController != null;
-        DashboardController.setData(data, originalData); // a verif (original)
+        DashboardController.setData(data, originalData);
     }
 
+    /**
+     * Redirige vers la page d'accueil de l'application.
+     * Cette méthode est appelée lorsqu'un bouton de navigation vers la page d'accueil est cliqué.
+     * @author Tom EVEN
+     */
     public void toHome() {
         HomeController homeController = (HomeController) App.setScene("layout/home.fxml");
         assert homeController != null;
-        homeController.setData(new ArrayList<>(originalData.get())); // a verif (original)
+        homeController.setData(new ArrayList<>(originalData.get()));
     }
 }

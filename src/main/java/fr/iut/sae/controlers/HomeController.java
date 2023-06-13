@@ -21,7 +21,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+/**
+ * Classe HomeController : Contrôleur de la vue Home.fxml.
+ * Permet de gérer les interactions et les fonctionnalités de la vue Home.
+ * @Version 1.0
+ * @author Maxime TAMARIN
+ */
 public class HomeController implements Initializable {
 
     @FXML
@@ -61,7 +66,13 @@ public class HomeController implements Initializable {
     @FXML
     private TextField radiusTextField;
 
-
+    /**
+     * Méthode appelée lors de l'initialisation du contrôleur.
+     * Permet de configurer les propriétés des éléments graphiques.
+     *
+     * @param url             L'URL de la ressource racine
+     * @param resourceBundle Les ressources spécifiques à la langue
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countryComboBox.disableProperty().bind(latitudeTextField.textProperty().isNotEmpty().or(longitudeTextField.textProperty().isNotEmpty()).or(radiusTextField.textProperty().isNotEmpty()));
@@ -70,12 +81,21 @@ public class HomeController implements Initializable {
         radiusTextField.disableProperty().bind(countryComboBox.valueProperty().isNotNull().and(countryComboBox.valueProperty().isNotEqualTo("")));
     }
 
+    /**
+     * Définit les données à utiliser dans la vue Home.
+     *
+     * @param originalData Les données originales des séismes
+     */
     public void setData(ArrayList<Earthquakes> originalData) {
         this.data = originalData;
         validFiles();
 
     }
 
+    /**
+     * Méthode appelée lors du clic sur le bouton "Sélectionner un fichier CSV".
+     * Permet de sélectionner un fichier CSV et de lire les données.
+     */
     @FXML
     public void openFile() {
         FileChooser fileChooser = new FileChooser();
@@ -94,6 +114,9 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Est appelé lorsqu'un fichier CSV est chargé et qu'il contient des données
+     */
     public void validFiles(){
         findButton.setDisable(false);
         openFileButton.setDisable(true);
@@ -105,6 +128,10 @@ public class HomeController implements Initializable {
         isUploadImage.setFitWidth(30);
     }
 
+    /**
+     * Méthode appelée lors du clic sur le bouton "Rechercher".
+     * Charge la vue EarthquakesResearch.fxml et envoie les données filtrées.
+     */
     @FXML
     public void findHandler(){
         // Charger la vue EarthquakesResearch.fxml
@@ -116,6 +143,9 @@ public class HomeController implements Initializable {
         earthquakesResearchController.setData(data, filtredData);
     }
 
+    /**
+     * Remplit la liste déroulante avec les régions issue des donées du fichier CSV.
+     */
     public void fillComboxBox(){
         ArrayList<String> regions = new ArrayList<>();
 
