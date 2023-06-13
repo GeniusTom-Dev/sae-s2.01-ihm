@@ -1,11 +1,9 @@
 package fr.iut.sae.controlers;
 
-import fr.iut.sae.utils.CSVReader;
+import fr.iut.sae.utils.FileReader;
 import fr.iut.sae.utils.DataFilter;
 import fr.iut.sae.utils.Earthquakes;
 import fr.iut.sae.App;
-import javafx.beans.binding.Binding;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,7 +17,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -88,7 +85,7 @@ public class HomeController implements Initializable {
 
         if (selectedFile != null) {
             // Appel de la méthode pour exploiter les données du fichier CSV
-            this.data = new CSVReader().readCSV(selectedFile);
+            this.data = new FileReader().readCSV(selectedFile);
 
             if(data.size() > 0){
                 validFiles();
