@@ -76,7 +76,7 @@ public class DataFilter {
             }
 
         }
-        if (!country.isEmpty()) {
+        else if (!country.isEmpty()) {
             for (int i = filteredData.size() - 1; i >= 0; i--) {
                 Earthquakes earthquake = filteredData.get(i);
                 if (!earthquake.getRegion().equals(country)) {
