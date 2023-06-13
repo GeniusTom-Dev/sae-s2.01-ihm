@@ -16,22 +16,12 @@
             prefWidth="1280" prefHeight="720" stylesheets="@/styles/dashboard.css" >
 
     <top>
-        <HBox alignment="CENTER" style="-fx-padding: 0 25 0 25" prefHeight="50">
-            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                <Button text="Menu pricipal" prefHeight="30" onAction="#toHome"/>
-            </VBox>
-
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-                <Label text="Tableau de Board" styleClass="title">
-                    <font>
-                        <Font name="System Bold" size="24" />
-                    </font>
-                </Label>
-            </VBox>
-
-            <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                <Button text="Recherche de séismes" prefHeight="30" onAction="#toResearch"/>
-            </VBox>
+        <HBox alignment="CENTER">
+            <Label text="Dashboard" style="-fx-text-fill: white">
+                <font>
+                    <Font name="System Bold" size="24" />
+                </font>
+            </Label>
         </HBox>
     </top>
 
