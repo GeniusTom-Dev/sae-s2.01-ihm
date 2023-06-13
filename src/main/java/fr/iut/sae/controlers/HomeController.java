@@ -110,8 +110,8 @@ public class HomeController implements Initializable {
         // Charger la vue EarthquakesResearch.fxml
         EarthquakesResearchController earthquakesResearchController = (EarthquakesResearchController) App.setScene("layout/EarthquakesResearch.fxml");
         assert earthquakesResearchController != null;
-        filtredData.addAll(new DataFilter().dataFilter(firstDate.getText(),lastDate.getText(),
-                data,longitudeTextField.getText(),latitudeTextField.getText(),radiusTextField.getText(),countryComboBox.getValue()));
+        filtredData.addAll(new DataFilter().dataFilter(data, firstDate.getText(),lastDate.getText(),
+                latitudeTextField.getText(), longitudeTextField.getText(),radiusTextField.getText(),countryComboBox.getValue()));
 
         earthquakesResearchController.setData(data, filtredData);
     }

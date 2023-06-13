@@ -13,8 +13,8 @@ public class DataFilter {
         this.filteredData = new ArrayList<>();
     }
 
-    public ArrayList<Earthquakes> dataFilter (String firstDate, String lastDate, ArrayList<Earthquakes> data,
-                                              String longitudeStr, String latitudeStr, String radiusStr, String country){
+    public ArrayList<Earthquakes> dataFilter (ArrayList<Earthquakes> data,String firstDate, String lastDate,String latitudeStr,
+                                              String longitudeStr, String radiusStr, String country){
         filteredData.clear();
         filteredData.addAll(data);
 
