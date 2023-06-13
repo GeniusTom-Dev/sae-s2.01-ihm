@@ -3,6 +3,6 @@
 
 ### Made by 
 - Even Tom (GeniusTom-Dev)
-- Tamarin Maximet (MaximeTamarint22003230)
+- Tamarin Maxime (MaximeTamarint22003230)
 
 Realization of a graphical interface on the analysis of data from Sisfrance on earthquakes
