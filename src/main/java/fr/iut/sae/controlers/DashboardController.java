@@ -113,12 +113,12 @@ public class DashboardController{
         HashMap<Integer, Integer> earthquakesByYear = new HashMap<>();
         XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>();
         dataSeries.setName("Année du séisme");
-        Integer maxYear = 0;
-        Integer minYear = 0;
+        int maxYear = 0;
+        int minYear = 0;
 
         for(Earthquakes e : data){
             if(!e.getDate().isEmpty()){
-                Integer year = (int) Math.round(Integer.valueOf(e.getDate().split("/")[0]) / 10.0) * 10;
+                Integer year = (int) Math.round(Integer.parseInt(e.getDate().split("/")[0]) / 10.0) * 10;
 
                 if (earthquakesByYear.containsKey(year)) {
                     earthquakesByYear.put(year, earthquakesByYear.get(year) + 1);
@@ -149,7 +149,7 @@ public class DashboardController{
 
     public void initPieChart(){
         HashMap<String, Integer> earthquakesByShock = new HashMap<>();
-        Integer countShock = 0;
+        int countShock = 0;
 
         for(Earthquakes e : data){
             if(!e.getShock().isEmpty()){

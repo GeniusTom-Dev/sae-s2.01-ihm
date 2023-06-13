@@ -7,10 +7,14 @@ import java.util.ArrayList;
 
 public class DataFilter {
 
-    private ArrayList<Earthquakes> filteredData = new ArrayList<>();
+    private final ArrayList<Earthquakes> filteredData;
 
-    public ArrayList<Earthquakes> dataFilter (String firstDate, String lastDate,ArrayList<Earthquakes> data,
-                                              String longitudeStr,String latitudeStr,String radiusStr, String country){
+    public DataFilter() {
+        this.filteredData = new ArrayList<>();
+    }
+
+    public ArrayList<Earthquakes> dataFilter (String firstDate, String lastDate, ArrayList<Earthquakes> data,
+                                              String longitudeStr, String latitudeStr, String radiusStr, String country){
         filteredData.clear();
         filteredData.addAll(data);
 
