@@ -15,6 +15,9 @@
 
 .label{
     -fx-padding: 0 0 0 20;
+}
+
+.title{
     -fx-text-fill: white;
 }
 

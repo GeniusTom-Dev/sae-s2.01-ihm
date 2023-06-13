@@ -136,6 +136,8 @@ public class HomeController implements Initializable {
             countryComboBox.getItems().add(v);
         }
 
+        countryComboBox.setValue("");
+
     }
 
 

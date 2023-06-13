@@ -37,10 +37,6 @@ public class Earthquakes {
         return date;
     }
 
-    public String getHour() {
-        return hour;
-    }
-
     public String getName() {
         return name;
     }
@@ -53,14 +49,6 @@ public class Earthquakes {
         return shock;
     }
 
-    public String getXrgf() {
-        return xrgf;
-    }
-
-    public String getYrgf() {
-        return yrgf;
-    }
-
     public String getLatitude() {
         return latitude;
     }
@@ -71,10 +59,6 @@ public class Earthquakes {
 
     public String getIntensity() {
         return intensity;
-    }
-
-    public String getQuality() {
-        return quality;
     }
 
     public String toString() {

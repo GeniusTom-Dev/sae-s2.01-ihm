@@ -22,7 +22,7 @@
             </VBox>
 
             <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-                <Label text="Recherche de Séisme" >
+                <Label text="Tableau de Board" styleClass="title">
                     <font>
                         <Font name="System Bold" size="24" />
                     </font>

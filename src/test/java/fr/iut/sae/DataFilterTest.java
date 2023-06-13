@@ -2,6 +2,7 @@ package fr.iut.sae;
 
 import fr.iut.sae.utils.DataFilter;
 import fr.iut.sae.utils.Earthquakes;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,7 +72,23 @@ public class DataFilterTest {
         ArrayList<Earthquakes> testData = new ArrayList<>();
         testData.add(originalData.get(0));
         testData.add(originalData.get(5));
-
         assertEquals(testData,new DataFilter().dataFilter(originalData, "", "", "46","6", "245", ""));
+    }
+
+    @Test
+    public void testCountry(){
+        ArrayList<Earthquakes> originalData = generateDataExample();
+        ArrayList<Earthquakes> testData = new ArrayList<>();
+        testData.add(originalData.get(1));
+        testData.add(originalData.get(2));
+        assertEquals(testData, new DataFilter().dataFilter(originalData, "", "", "", "", "", "ALPES MARITIMES"));
+    }
+
+    @Test
+    public void testMultipleFilters(){
+        ArrayList<Earthquakes> originalData = generateDataExample();
+        ArrayList<Earthquakes> testData = new ArrayList<>();
+        testData.add(originalData.get(1));
+        assertEquals(testData, new DataFilter().dataFilter(originalData, "1500", "1600", "","", "", "ALPES MARITIMES"));
     }
 }
